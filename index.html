@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link rel="stylesheet" href="style.css">
+        <title>Isulat mo, Ibaybay ko</title>
+    </head>
+    <body>
+        <!-- for the container of the two divs --> 
+        <div class="container">
+            <!-- create a card for the FROM-->
+            <!-- input text-->
+            <div class="card input-wrapper">
+                <!-- from container, e.g. from: latin script-->
+                <div class="from">
+                    <span class="heading" style="font-size: 15px;">FROM :</span>
+                    <!-- dropdown -->
+                    <div class="dropdown-container" id="input-script">
+                        <div class="dropdown-toggle">
+                            <ion-icon name="help-outline"></ion-icon>
+                            <span class="selected-script">Choose a Script</span>
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li class="option active">Latin Script</li>
+                            <li class="option">Baybayin Script</li>
+                        </ul>
+                    </div>
+                    </div>
+                    <!-- txt area of the FROM-->
+                    <div class="text-area">
+                        <textarea id="input-text" cols="30" rows="10" placeholder="Enter Latin Script text here..."></textarea>
+                        <div class="chars">
+                            <span id="input-chars">0</span> / 5000
+                        </div>
+                </div>
+                <div class="card-bottom">
+                    <p>OR</p>
+                    <label for="upload-photo">
+                        <span id="upload-title">Choose a Photo</span>
+                        <ion-icon name="image-outline"></ion-icon>
+                        <input type="image" id="upload-photo" hidden />
+                    </label>
+                </div>
+            </div>
+
+            <!-- Swap button-->
+            <div class="center">
+                <div class="swap-position">
+                    <ion-icon name="swap-horizontal-outline"></ion-icon>
+                </div>
+            </div>
+
+            <!-- create a card for the TO-->
+            <!-- output text-->
+            <div class="card output-wrapper">
+                <!-- from container, e.g. from: latin script-->
+                <div class="to">
+                    <span class="heading" style="font-size: 15px;">TO :</span>
+                    <!-- dropdown -->
+                    <div class="dropdown-container" id="output-script">
+                        <div class="dropdown-toggle">
+                            <ion-icon name="help-outline"></ion-icon>
+                            <span class="selected-script">Baybayin</span>
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li class="option active">Latin Script</li>
+                            <li class="option">Baybayin Script</li>
+                        </ul>
+                    </div>
+                    </div>
+                    <!-- txt area of the TO-->
+                    <div class="text-area">
+                        <textarea id="output-text" cols="30" rows="10" placeholder="The Baybayin equivalence is..."></textarea>
+                </div>
+                <div class="card-bottom">
+                    <p>OR</p>
+                    <button id="copy-to-clipboard">
+                        <span>Copy to clipboard</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card baybayin-keyboard"></div>
+        <script src="script.js"></script>
+    </body>
+</html>
