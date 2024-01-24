@@ -48,7 +48,7 @@
                     </div>
                     <!-- txt area of the FROM-->
                     <div class="text-area">
-                        <textarea id="input-text" cols="30" rows="10" placeholder="Enter Latin Script text here..."></textarea>
+                        <textarea id="input-text"  placeholder="Enter Latin Script text here..."></textarea>
                         <div class="chars">
                             <span id="input-chars">0</span> / 5000
                         </div>
@@ -91,7 +91,7 @@
                     </div>
                     <!-- txt area of the TO-->
                     <div class="text-area">
-                        <textarea id="output-text" cols="30" rows="10" placeholder="The Baybayin equivalence is..."></textarea>
+                        <textarea id="output-text"  placeholder="The Baybayin equivalence is..."></textarea>
                 </div>
                 <div class="card-bottom">
                     <p>OR</p>
@@ -108,55 +108,141 @@
                 </div>
                 <!-- for the vowels, and kudlits-->
                 <div class="row">
-                    <button class="baybayin">a</button>
-                    <button class="baybayin">e</button>
-                    <button class="baybayin">i</button>
-                    <button class="baybayin">o</button>
-                    <button class="baybayin">u</button>
-                    <button class="delete">DEL</ion-icon></button>
+                    <button>
+                        <span class="baybayin-char">a</span>
+                        <span class="latin-script">A</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">e</span>
+                        <span class="latin-script">E</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">i</span>
+                        <span class="latin-script">I</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">o</span>
+                        <span class="latin-script">O</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">u</span>
+                        <span class="latin-script">U</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">BA</span>
+                        <span class="latin-script">BA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">CA</span>
+                        <span class="latin-script">CA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">DA</span>
+                        <span class="latin-script">DA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">FA</span>
+                        <span class="latin-script">FA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">GA</span>
+                        <span class="latin-script">GA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">HA</span>
+                        <span class="latin-script">HA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">JA</span>
+                        <span class="latin-script">JA</span>
+                    </button>
+                    <button class="del">DEL</button>
                 </div>
-
                 <!-- for the consonants with vowels pt1-->
                 <div class="row">
-                    <button class="baybayin">BA</button>
-                    <button class="baybayin">CA</button>
-                    <button class="baybayin">DA</button>
-                    <button class="baybayin">FA</button>
-                    <button class="baybayin">GA</button>
-                    <button class="baybayin">HA</button>
-                    <button class="baybayin">JA</button>
+                    
                 </div>
 
                 <!-- for the consonants with vowels pt2-->
                 <div class="row">
-                    <button class="baybayin">KA</button>
-                    <button class="baybayin">LA</button>
-                    <button class="baybayin">MA</button>
-                    <button class="baybayin">NYA</button>
-                    <button class="baybayin">NGA</button>
-                    <button class="baybayin">PA</button>
+                    <button>
+                        <span class="baybayin-char">KA</span>
+                        <span class="latin-script">KA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">LA</span>
+                        <span class="latin-script">LA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">MA</span>
+                        <span class="latin-script">MA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">NYA</span>
+                        <span class="latin-script">NYA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">NGA</span>
+                        <span class="latin-script">NGA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">PA</span>
+                        <span class="latin-script">PA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">QA</span>
+                        <span class="latin-script">QA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">RA</span>
+                        <span class="latin-script">RA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">SA</span>
+                        <span class="latin-script">SA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">TA</span>
+                        <span class="latin-script">TA</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">VA</span>
+                        <span class="latin-script">VA</span>
+                    </button>
                 </div>
 
                 <!-- for the consonants with vowels pt3-->
                 <div class="row">
-                    <button class="baybayin">QA</button>
-                    <button class="baybayin">RA</button>
-                    <button class="baybayin">SA</button>
-                    <button class="baybayin">TA</button>
-                    <button class="baybayin">VA</button>
+                    
                 </div>
 
                 <!-- for the consonants with vowels pt4-->
                 <div class="row">
-                    <button class="baybayin">WA</button>
-                    <button class="baybayin">XA</button>
-                    <button class="baybayin">YA</button>
-                    <button class="baybayin">ZA</button>
+                    <button>
+                        <span class="baybayin-char">WA</span>
+                        <span class="latin-script">W</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">XA</span>
+                        <span class="latin-script">X</span>
+                    </button>
+                    <button class="space">
+                        <span>||</span>
+                        <span class="latin-script">SPACE</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">YA</span>
+                        <span class="latin-script">Y</span>
+                    </button>
+                    <button>
+                        <span class="baybayin-char">ZA</span>
+                        <span class="latin-script">Z</span>
+                    </button>
                 </div>
 
                 <!-- for the space button-->
                 <div class="row">
-                    <button class="space">||</button>
+                    
                 </div>
             </div>
         </div>
