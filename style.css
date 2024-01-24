@@ -32,14 +32,20 @@ body{
 .container{
     position: relative;
     width: 1500px;
+    margin-top: 100px;
     padding: 0 10px;
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+
 }
 
 /* creating the card */
 .container .card{
-    flex: 1;
+    margin-top: -5em;
+    width: 40em;
+    height: 350px;
     padding: 30px;
     border-radius: 20px;
     background-color: var(--light-bg-color);
@@ -249,7 +255,7 @@ body{
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 30px;
+    top: -3.2em;
     left: 50%;
     transform: translateX(-50%) scale(1.1);
     width: 50px;
@@ -274,6 +280,7 @@ body{
 
 /* keyboard layout */
 .card-baybayin-keyboard{
+    margin-top: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -305,6 +312,24 @@ body{
     width: 200px;
 }
 
+/* Baybayin character styling */
+.baybayin-char {
+    display: block; /* Ensures the Latin script appears on the next line */
+    font-size: 1.5em; /* Adjust size as needed */
+    font-family: 'BaybayinDoctrinaClear', sans-serif; /* Use your custom font and fallbacks */
+}
+
+/* Latin script styling */
+.latin-script {
+    display: block; /* Ensures it appears on a new line */
+    margin-top: 0.5em;
+    font-size: 0.7em; /* Smaller font size */
+    line-height: 1; /* Adjust spacing as needed */
+}
+
+.del {
+    padding-top: 20px;
+}
 /* max width when you move your browser? */
 @media(max-width: 800px){
     .container{
