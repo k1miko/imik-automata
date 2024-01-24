@@ -1,18 +1,31 @@
 A
-E/I
-O/U
+E
+I
+O
+U
 BA
-KA
+CA
 DA
+FA
 GA
 HA
+JA
+KA
 LA
 MA
 NA
+NYA
 NGA
 PA
+QA
 RA
 SA
 TA
+VA
 WA
+XA
 YA
+ZA
+- x kudlit for one letter only
+- wave like kudlit sa taas for E (ex., BE), and below if its U (ex., BU)
+- circle like kudlit sa taas if I (ex., BI), and circle like kudlit if O (ex., BO)
