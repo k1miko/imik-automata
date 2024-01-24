@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -7,6 +7,7 @@
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tagalog&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <script src="script.js" defer></script>
         <title>Isulat mo, Ibaybay ko</title>
@@ -24,12 +25,12 @@
                     <div class="dropdown-container" id="input-script">
                         <div class="dropdown-toggle">
                             <ion-icon name="help-outline"></ion-icon>
-                            <span class="selected-script">Choose a Script</span>
+                            <span class="selected-script" data-value="auto">Choose a Script</span>
                             <ion-icon name="chevron-down-outline"></ion-icon>
                         </div>
                         <ul class="dropdown-menu">
-                            <li class="option active">Latin Script</li>
-                            <li class="option">Baybayin Script</li>
+                            <li class="option active" data-value="lat">Latin Script</li>
+                            <li class="option" data-value="byn">Baybayin Script</li>
                         </ul>
                     </div>
                     </div>
@@ -95,8 +96,8 @@
                 </div>
                 <!-- for the vowels, and kudlits-->
                 <div class="row">
-                    <button class="btn">A</button>
-                    <button class="btn">E</button>
+                    <button class="btn">&#x1700</button>
+                    <button class="btn">&#x1701</button>
                     <button class="btn">I</button>
                     <button class="btn">O</button>
                     <button class="btn">U</button>
