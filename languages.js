@@ -3,7 +3,7 @@ const languages = [
         no: "0",
         name: "Script",
         native: "Choose one",
-        code: "default",
+        code: "auto",
     },
     {
         no: "1",

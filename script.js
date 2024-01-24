@@ -59,4 +59,52 @@ dropdowns.forEach(dropdown => {
     dropdown.addEventListener("click", (e) => {
         dropdown.classList.toggle("active");
     })
+
+    dropdown.querySelectorAll(".option").forEach(item => {
+        item.addEventListener("click", (e) => {
+            dropdown.querySelectorAll(".option").forEach(item => { // for removing what's currently selected
+                item.classList.remove("active");
+            })
+
+            // then add or display the selected as the active now
+            item.classList.add("active");
+            const selected = dropdown.querySelector(".selected-script");
+            selected.innerHTML = item.innerHTML;
+            selected.dataset.value = item.dataset.value;
+        })
 })
+})
+
+// for the dropdown too hehe
+document.addEventListener("click", (e) => {
+    dropdowns.forEach(dropdown => {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove("active");
+        }
+    })
+})
+
+/* swapping from one script to another
+const inputText = document.querySelector("#input-text")
+const outputText = document.querySelector("#output-text")
+const outputLanguage = inputLangDropdown.querySelector(".selected-script")
+const swapButton = document.querySelector(".swap-position")
+
+!! NOTE: Swap button won't be able to work bec
+we have yet  to add the transliteration between latin script to baybayin and vice versa 
+swapButton.addEventListener("click", (e) => {
+    const temp = inputLanguage.innerHTML;
+    inputLanguage.innerHTML = outputLanguage.innerHTML;
+    outputLanguage.innerHTML = temp;
+
+    const tempValue = inputLanguage.dataset.value
+    inputLanguage.dataset.value = outputLanguage.dataset.value
+    outputLanguage.dataset.value = tempValue
+
+    const tempInputText = inputTextElem.value
+    inputTextElem.value = outputTextElem.value
+    outputTextElem.value = tempIntputText
+}) !!*/
+
+// for uploading the photo
+// for copying the text
