@@ -6,10 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+        <link rel="stylesheet" href="BaybayinDoctrinaClear.ttf" />
+
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <link rel="stylesheet" href="style.css">
         <script src="script.js" defer></script>
         <title>Isulat mo, Ibaybay ko</title>
+        <style>
+            @font-face {
+                font-family: 'BaybayinDoctrinaClear';
+                src: url('BaybayinDoctrinaClear.ttf') format('truetype'); 
+            }
+    
+            .baybayin {
+                font-family: 'BaybayinDoctrinaClear', sans-serif; /* Use your custom font and fallbacks */
+            }
+        </style>
     </head>
     <body>
         <!-- for the container of the 3 divs --> 
@@ -95,12 +108,12 @@
                 </div>
                 <!-- for the vowels, and kudlits-->
                 <div class="row">
-                    <button class="btn">A</button>
-                    <button class="btn">E</button>
-                    <button class="btn">I</button>
-                    <button class="btn">O</button>
-                    <button class="btn">U</button>
-                    <button class="btn">E/U</button>
+                    <button class="baybayin">ba</button>
+                    <button class="baybayin">be</button>
+                    <button class="baybayin">bi</button>
+                    <button class="baybayin">bo</button>
+                    <button class="baybayin">bu</button>
+                    <button class="btn">||</button>
                     <button class="btn">I/O</button>
                     <button class="delete">DEL</ion-icon></button>
                 </div>
