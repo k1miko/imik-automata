@@ -85,6 +85,19 @@ document.addEventListener("click", (e) => {
     })
 })
 
+document.addEventListener("DOMContentLoaded", function () {
+    var baybayinKeyboard = document.querySelector('.card-baybayin-keyboard');
+    var toggleButton = document.getElementById('toggle-keyboard-button');
+
+    // Add click event listener to the toggle button
+    if (toggleButton) {
+        toggleButton.addEventListener('click', function () {
+            // Toggle the visibility of the keyboard by adding/removing the 'visible' class
+            baybayinKeyboard.classList.toggle('visible');
+        });
+    }
+});
+
 /* swapping from one script to another
 const inputText = document.querySelector("#input-text")
 const outputText = document.querySelector("#output-text")
