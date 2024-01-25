@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+        <link href="static/css/BaybayinDoctrinaClear.ttf" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tagalog&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <title>Isulat mo, Ibaybay ko</title>
+        <style>
+            @font-face {
+                font-family: 'BaybayinDoctrinaClear';
+                src: url('static/css/BaybayinDoctrinaClear.ttf') format('truetype'); 
+            }
+    
+            .baybayin {
+                font-family: 'BaybayinDoctrinaClear', sans-serif; /* Use your custom font and fallbacks */
+            }
+        </style>
+    </head>
+    <body>
+        <!-- for the container of the 3 divs --> 
+        <div class="container">
+            <!-- create a card for the FROM-->
+            <!-- input text-->
+            <div class="card input-wrapper">
+                <!-- from container, e.g. from: latin script-->
+                <div class="from">
+                    <span class="heading" style="font-size: 15px;">FROM :</span>
+                    <!-- dropdown -->
+                    <div class="dropdown-container" id="input-script">
+                        <div class="dropdown-toggle">
+                            <ion-icon name="help-outline"></ion-icon>
+                            <span class="selected-script" data-value="auto">Choose a Script</span>
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li class="option active" data-value="lat">Latin Script</li>
+                            <li class="option" data-value="byn">Baybayin Script</li>
+                        </ul>
+                    </div>
+                    </div>
+                    <!-- txt area of the FROM-->
+                    <div class="text-area">
+                        <textarea id="input-text"  placeholder="Enter Latin Script text here..."></textarea>
+                        <div class="chars">
+                            <span id="input-chars">0</span> / 5000
+                        </div>
+                </div>
+                <div class="card-bottom">
+                    <p>OR</p>
+                    <label for="upload-photo">
+                        <span id="upload-title">Choose a Photo</span>
+                        <ion-icon name="image-outline"></ion-icon>
+                        <input type="image" id="upload-photo" hidden />
+                    </label>
+                </div>
+            </div>
+
+            <!-- Swap button-->
+            <div class="center">
+                <div class="swap-position">
+                    <ion-icon name="swap-horizontal-outline"></ion-icon>
+                </div>
+            </div>
+
+            <!-- create a card for the TO-->
+            <!-- output text-->
+            <div class="card output-wrapper">
+                <!-- from container, e.g. from: latin script-->
+                <div class="to">
+                    <span class="heading" style="font-size: 15px;">TO :</span>
+                    <!-- dropdown -->
+                    <div class="dropdown-container" id="output-script">
+                        <div class="dropdown-toggle">
+                            <ion-icon name="help-outline"></ion-icon>
+                            <span class="selected-script">Baybayin</span>
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li class="option active">Latin Script</li>
+                            <li class="option">Baybayin Script</li>
+                        </ul>
+                    </div>
+                    </div>
+                    <!-- txt area of the TO-->
+                    <div class="text-area">
+                        <textarea id="output-text"  placeholder="The Baybayin equivalence is..."></textarea>
+                </div>
+                <div class="card-bottom">
+                    <p>OR</p>
+                    <button id="copy-to-clipboard">
+                        <span>Copy to clipboard</span>
+                    </button>
+                </div>
+            </div>
+            <!-- virtual keyboard -->
+        </div>
+        <div id="keyboard-container">
+            <button id="toggle-keyboard-button">Display Keyboard</button>
+            <div>
+                <div class="card-baybayin-keyboard">
+                    <!-- div for the "virtual keyboard p"-->
+                    <div class="row">
+                        <p>Virtual Baybayin Keyboard</p>
+                    </div>
+                    <!-- for the vowels, and kudlits-->
+                    <div class="row">
+                        <button class="btn">
+                            <span class="baybayin-char">&#x0041;</span>
+                            <span class="latin-script">A</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">e</span>
+                            <span class="latin-script">E</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">i</span>
+                            <span class="latin-script">I</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">o</span>
+                            <span class="latin-script">O</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">u</span>
+                            <span class="latin-script">U</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">BA</span>
+                            <span class="latin-script">BA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">CA</span>
+                            <span class="latin-script">CA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">DA</span>
+                            <span class="latin-script">DA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">FA</span>
+                            <span class="latin-script">FA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">GA</span>
+                            <span class="latin-script">GA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">HA</span>
+                            <span class="latin-script">HA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">JA</span>
+                            <span class="latin-script">JA</span>
+                        </button>
+                        <button class="delete">
+                            <ion-icon name="backspace-outline"></ion-icon>
+                            <span class="latin-script">DEL</span>
+                        </button>
+                    </div>
+                    <!-- for the consonants with vowels pt1-->
+                    <div class="row">
+                        
+                    </div>
+
+
+                    <!-- for the consonants with vowels pt2-->
+                    <div class="row">
+                        <button class="btn">
+                            <span class="baybayin-char">KA</span>
+                            <span class="latin-script">KA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">LA</span>
+                            <span class="latin-script">LA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">MA</span>
+                            <span class="latin-script">MA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">NA</span>
+                            <span class="latin-script">NA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">NGA</span>
+                            <span class="latin-script">NGA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">PA</span>
+                            <span class="latin-script">PA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">QA</span>
+                            <span class="latin-script">QA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">RA</span>
+                            <span class="latin-script">RA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">SA</span>
+                            <span class="latin-script">SA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">TA</span>
+                            <span class="latin-script">TA</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">VA</span>
+                            <span class="latin-script">VA</span>
+                        </button>
+                    </div>
+
+                    <!-- for the consonants with vowels pt3-->
+                    <!-- for the consonants with vowels pt4-->
+                    <div class="row">
+                        <button class="btn">
+                            <span class="baybayin-char">WA</span>
+                            <span class="latin-script">W</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">XA</span>
+                            <span class="latin-script">X</span>
+                        </button>
+                        <button class="space">
+                            <span>||</span>
+                            <span class="latin-script">SPACE</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">YA</span>
+                            <span class="latin-script">Y</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">ZA</span>
+                            <span class="latin-script">Z</span>
+                        </button>
+                    </div>
+
+                    <!-- for the space button-->
+                    <div class="row">
+                        
+                    </div>
+                </div>
+            </div>
+        <div>
+        <script src="{{ url_for('static', filename='script/languages.js') }}"></script>
+        <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+    </body>
+</html>
