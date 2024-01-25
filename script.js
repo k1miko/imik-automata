@@ -19,7 +19,8 @@ let chars = []
 /* click event for da script buttons */
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-        textarea.value += btn.innerText
+        const baybayinCharContent = btn.querySelector('.baybayin-char').textContent;
+        textarea.value += baybayinCharContent
         chars = textarea.value.split('')
         console.log(chars); // to see if it works go to the console log in the website
     })
@@ -33,7 +34,7 @@ delete_button.addEventListener('click', () => {
 
 // click event for the space
 space_button.addEventListener('click', () => {
-    chars.push(' ') // alows the space to be added at the end of the array
+    chars.push('||') // alows the space to be added at the end of the array
     textarea.value = chars.join('')
 })
 

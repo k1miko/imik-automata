@@ -15,7 +15,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', 'Noto Sans Tagalog', sans-serif;
+    font-family: 'Poppins', 'BaybayinDoctrinaClear', sans-serif;
 }
 
 /* body of the HTML*/
@@ -32,8 +32,8 @@ body{
 .container{
     position: relative;
     width: 1500px;
-    margin-top: 100px;
-    padding: 0 10px;
+    margin-top: 120px;
+    padding: 0 20px;
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
@@ -45,7 +45,7 @@ body{
 .container .card{
     margin-top: -5em;
     width: 40em;
-    height: 350px;
+    height: 540px;
     padding: 30px;
     border-radius: 20px;
     background-color: var(--light-bg-color);
@@ -109,7 +109,7 @@ body{
     top: 100%;
     left: 0;
     width: 100%;
-    height: 300px;
+    height: 180px;
     overflow: auto;
     display: none;
     padding: 20px;
@@ -154,11 +154,13 @@ body{
 /* text-area position*/
 .container .text-area{
     position: relative;
+    height: 330px;
 }
 
 /* text area itself */
 .container textarea{
     width: 100%;
+    height: 330px;
     padding: 20px;
     margin: 10px 0;
     background-color: transparent;
@@ -320,16 +322,18 @@ body{
 }
 
 /* Latin script styling */
-.latin-script {
+.card-baybayin-keyboard .row .latin-script {
     display: block; /* Ensures it appears on a new line */
     margin-top: 0.5em;
     font-size: 0.7em; /* Smaller font size */
     line-height: 1; /* Adjust spacing as needed */
 }
 
-.del {
+/* delete button */
+.card-baybayin-keyboard .row .del {
     padding-top: 20px;
 }
+
 /* max width when you move your browser? */
 @media(max-width: 800px){
     .container{
