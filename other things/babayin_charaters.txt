@@ -1,31 +1,31 @@
-A
-E
-I
-O
-U
-BA
-CA
-DA
-FA
-GA
-HA
-JA
-KA
-LA
-MA
-NA
-NYA
-NGA
-PA
-QA
-RA
-SA
-TA
-VA
-WA
-XA
-YA
-ZA
+!! value to keyboard !!
+q = A
+w = E
+e = I
+r = o
+t = u
+y = ba
+u = ca
+i = da
+o = fa
+p = ga
+a = ha
+s = ja
+d = ka
+f = la
+g = ma
+h = na
+j = nga
+k = pa
+l = qa
+z = ra
+x = sa
+c = ta
+v = va
+b = w
+n = x
+m = y
+, = z
 - x kudlit for one letter only
 - wave like kudlit sa taas for E (ex., BE), and below if its U (ex., BU)
 - circle like kudlit sa taas if I (ex., BI), and circle like kudlit if O (ex., BO)
