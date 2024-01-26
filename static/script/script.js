@@ -32,6 +32,19 @@ delete_button.addEventListener('click', () => {
     textarea.value = chars.join('') // it will update the text area
 })
 
+let holdDeleter;
+
+delete_button.addEventListener('mousedown', () => {
+    holdDeleter = setInterval(() => {
+        chars.pop(); // Delete the last character
+        textarea.value = chars.join(''); // Update the textarea
+    }, 100); // Adjust the interval as needed
+});
+
+delete_button.addEventListener('mouseup', () => {
+    clearInterval(holdDeleter); // Stop the continuous deletion when the button is released
+});
+
 // click event for the space
 space_button.addEventListener('click', () => {
     chars.push('||') // alows the space to be added at the end of the array
