@@ -8,6 +8,8 @@
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
         <link href="static/css/BaybayinDoctrinaClear.ttf" rel="stylesheet">
+        <link href="static/css/BaybayinDoctrinaClear.otf" rel="stylesheet">
+        <link href="static/css/BaybayinDoctrinaKudlit.otf" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tagalog&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
@@ -15,11 +17,12 @@
         <style>
             @font-face {
                 font-family: 'BaybayinDoctrinaClear';
-                src: url('static/css/BaybayinDoctrinaClear.ttf') format('truetype'); 
+                src: url('static/css/BaybayinDoctrinaClear.ttf') format('truetype'),
+                     url('static/css/BaybayinDoctrinaClear.otf') format('opentype');
             }
-    
-            .baybayin {
-                font-family: 'BaybayinDoctrinaClear', sans-serif; /* Use your custom font and fallbacks */
+            @font-face {
+                font-family: 'BaybayinDoctrinaKudlit';
+                src: url('static/css/BaybayinDoctrinaKudlit.ttf') format('truetype');
             }
         </style>
     </head>
@@ -115,23 +118,39 @@
                     <!-- for the vowels, and kudlits-->
                     <div class="row">
                         <button class="btn">
-                            <span class="baybayin-char">&#x0041;</span>
+                            <span class="baybayin-kudlit">e</span>
+                            <span class="latin-script">e</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-kudlit">i</span>
+                            <span class="latin-script">i</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-kudlit">o</span>
+                            <span class="latin-script">o</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-kudlit">u</span>
+                            <span class="latin-script">u</span>
+                        </button>
+                        <button class="btn">
+                            <span class="baybayin-char">A</span>
                             <span class="latin-script">A</span>
                         </button>
                         <button class="btn">
-                            <span class="baybayin-char">e</span>
+                            <span class="baybayin-char">E</span>
                             <span class="latin-script">E</span>
                         </button>
                         <button class="btn">
-                            <span class="baybayin-char">i</span>
+                            <span class="baybayin-char">I</span>
                             <span class="latin-script">I</span>
                         </button>
                         <button class="btn">
-                            <span class="baybayin-char">o</span>
+                            <span class="baybayin-char">O</span>
                             <span class="latin-script">O</span>
                         </button>
                         <button class="btn">
-                            <span class="baybayin-char">u</span>
+                            <span class="baybayin-char">U</span>
                             <span class="latin-script">U</span>
                         </button>
                         <button class="btn">
@@ -226,11 +245,11 @@
                     <div class="row">
                         <button class="btn">
                             <span class="baybayin-char">WA</span>
-                            <span class="latin-script">W</span>
+                            <span class="latin-script">WA</span>
                         </button>
                         <button class="btn">
                             <span class="baybayin-char">XA</span>
-                            <span class="latin-script">X</span>
+                            <span class="latin-script">XA</span>
                         </button>
                         <button class="space">
                             <span>||</span>
@@ -238,11 +257,11 @@
                         </button>
                         <button class="btn">
                             <span class="baybayin-char">YA</span>
-                            <span class="latin-script">Y</span>
+                            <span class="latin-script">YA</span>
                         </button>
                         <button class="btn">
                             <span class="baybayin-char">ZA</span>
-                            <span class="latin-script">Z</span>
+                            <span class="latin-script">ZA</span>
                         </button>
                     </div>
 
