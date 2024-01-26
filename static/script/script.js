@@ -87,7 +87,7 @@ document.addEventListener("click", (e) => {
 
 document.addEventListener("DOMContentLoaded", function () {
     var baybayinKeyboard = document.querySelector('.card-baybayin-keyboard');
-    var toggleButton = document.getElementById('toggle-keyboard-button');
+    var toggleButton = document.getElementById('keyboard-display');
 
     // Add click event listener to the toggle button
     if (toggleButton) {

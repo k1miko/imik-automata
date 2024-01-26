@@ -335,7 +335,7 @@ body{
     padding-top: 20px;
 }
 
-#toggle-keyboard-button {
+.toggle-keyboard-button {
     padding: 10px;
     background-color: #3498db;
     color: #fff;
@@ -346,12 +346,13 @@ body{
     justify-content: center;
     width: 200px;
     align-self: center;
+    margin: 15px;
     border-radius: 5px;
     margin-bottom: 10px;
     transition: background-color 0.3s ease-in-out;
 }
 
-#toggle-keyboard-button:hover {
+.toggle-keyboard-button:hover {
     background-color: var(--another-color);
     color: var(--primary-text-color);
 }
@@ -377,6 +378,14 @@ body{
     margin: 10px;
     margin-top: 20px;
 }
+
+.same-line-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
 
 
 
