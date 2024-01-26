@@ -15,7 +15,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', 'BaybayinDoctrinaClear', sans-serif;
+    font-family: 'Poppins', 'BaybayinDoctrinaClear', 'BaybayinDoctrinaKudlit',sans-serif;
 }
 
 /* body of the HTML*/
@@ -320,6 +320,12 @@ body{
     display: block; /* Ensures the Latin script appears on the next line */
     font-size: 1.5em; /* Adjust size as needed */
     font-family: 'BaybayinDoctrinaClear', sans-serif; /* Use your custom font and fallbacks */
+}
+
+.baybayin-kudlit {
+    display: block; /* Ensures the Latin script appears on the next line */
+    font-size: 1.5em; /* Adjust size as needed */
+    font-family: 'BaybayinDoctrinaKudlit', sans-serif; /* Use your custom font and fallbacks */
 }
 
 /* Latin script styling */
