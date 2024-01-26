@@ -165,6 +165,6 @@ if __name__ == "__main__":
         if converter.state == "start":
             converter.result = "Enter a character"
         elif converter.state == "consonant":
-            converter.result = "Input not available in Baybayin"
+            converter.result = converter.result[:-1]  # Exclude the consonant character
 
         print("Baybayin output:", converter.result)
