@@ -10,6 +10,11 @@
     --another-color: #738290;
 }
 
+@font-face {
+    font-family: Baybayin;
+    src: url(BaybayinDoctrina.otf);
+}
+
 /* for the elements of HTML*/
 *{
     margin: 0;
@@ -70,7 +75,14 @@ body{
 
 #input-text {
     text-transform: uppercase;
+    color:var(--text-color);
 }
+
+#output-text {
+    text-transform: uppercase;
+    color:var(--text-color);
+}
+
 
 /*dropdown-container */
 .dropdown-container{
