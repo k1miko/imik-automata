@@ -8,6 +8,8 @@ const delete_button = document.querySelector('.delete')
 /* when putting space in the text area */
 const space_button = document.querySelector('.space')
 
+// copying output to clipboard
+
 // for the dropdown function
 const dropdowns = document.querySelectorAll('.dropdown-container'),
       inputLangDropdown = document.querySelector('#input-script'),
@@ -215,3 +217,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     });
 });
+
+function copyToClipboard(){
+    const element = document.querySelector('#output-text');
+    element.select();
+    element.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+}
