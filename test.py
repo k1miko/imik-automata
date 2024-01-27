@@ -26,7 +26,7 @@ class LatinToBaybayinConverter:
 
     # Transition
     def transition(self, char):
-        
+
         # Start State
         if self.state == "start":
             # Input is a vowel
@@ -221,9 +221,7 @@ if __name__ == "__main__":
         # Checks for final state
         if converter.state == "start": # If input is only in a start state
             converter.result = "Enter a character"
-        elif converter.state == "consonant": # If last input is a consonant
-            converter.result = "Input not available in Baybayin"
-        elif converter.state == "check" or converter.state == "dead": # If last input is in a check or dead state
+        elif converter.state == converter.state == "dead" or converter.state == "consonant" or converter.state == "digraph": # If last input is not a final state
             converter.result = "Input not available in Baybayin"
 
         print("Baybayin output:", converter.result)
