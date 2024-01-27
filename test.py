@@ -229,4 +229,4 @@ if __name__ == "__main__":
         elif converter.state == "final_consonant": # If last input is a final consonant
             converter.result = converter.result[:-1]
 
-        print("Baybayin output:", converter.result)
+        print("Baybayin output:", converter.result.upper())
