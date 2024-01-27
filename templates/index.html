@@ -54,7 +54,7 @@
                         <div class="chars">
                             <span id="input-chars">0</span> / 5000
                         </div>
-                </div>
+                    </div>
                 <div class="card-bottom">
                     <p>OR</p>
                     <label for="upload-photo">
@@ -82,12 +82,12 @@
                     <div class="dropdown-container" id="output-script">
                         <div class="dropdown-toggle">
                             <ion-icon name="help-outline"></ion-icon>
-                            <span class="selected-script">Baybayin</span>
+                            <span class="selected-script" data-value="auto">Choose a Script</span>
                             <ion-icon name="chevron-down-outline"></ion-icon>
                         </div>
                         <ul class="dropdown-menu">
-                            <li class="option active">Latin Script</li>
-                            <li class="option">Baybayin Script</li>
+                            <li class="option active" data-value="lat" >Latin Script</li>
+                            <li class="option" data-value="byn" >Baybayin Script</li>
                         </ul>
                     </div>
                     </div>
@@ -107,7 +107,7 @@
         <div id="keyboard-container">
             <div class="same-line-button">
                 <button class="toggle-keyboard-button" id="keyboard-display">Display Keyboard</button>
-                <button class="toggle-keyboard-button">Trasliterate</button>
+                <button class="toggle-keyboard-button" id="transliterate-button">Trasliterate</button>
             </div>
             <div>
                 <div class="card-baybayin-keyboard">

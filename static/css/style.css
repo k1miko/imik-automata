@@ -68,6 +68,10 @@ body{
     white-space: nowrap;
 }
 
+#input-text {
+    text-transform: uppercase;
+}
+
 /*dropdown-container */
 .dropdown-container{
     position: relative;
@@ -110,7 +114,7 @@ body{
     top: 100%;
     left: 0;
     width: 100%;
-    height: 180px;
+    height: 130px;
     overflow: auto;
     display: none;
     padding: 20px;
