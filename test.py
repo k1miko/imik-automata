@@ -109,9 +109,10 @@ class LatinToBaybayinConverter:
                 if char.lower() in consonants_for_digraph or char.upper() in consonants_for_digraph_upper:
                     self.state = "final_consonant"
                     self.digraph = True
+                    self.result = self.result + char
                 else:
                     self.state = "final_consonant"
-                    self.result = self.result
+                    self.result = self.result + char
             # Input is a space
             elif char.isspace():
                 self.state = "space"
@@ -166,7 +167,6 @@ class LatinToBaybayinConverter:
             # Input is a vowel
             if char.lower() in vowels_lower or char.upper() in vowels_upper:
                 self.state = "syllable"
-                self.result = self.result[:-1]
                 self.result = self.result + char
             # Input is a consonant
             elif char.lower() in consonants_lower or char.upper() in consonants_upper:
@@ -176,14 +176,17 @@ class LatinToBaybayinConverter:
                     self.result = self.result + char
                 elif char.lower() in consonants_for_digraph or char.upper() in consonants_for_digraph_upper:
                     self.state = "consonant"
+                    self.result = self.result[:-1]
                     self.result = self.result + char
                     self.digraph = True
                 else:
                     self.state = "consonant"
+                    self.result = self.result[:-1]
                     self.result = self.result + char
             # Input is a space
             elif char.isspace():
                 self.state = "space"
+                self.result = self.result[:-1]
                 self.result = self.result + char
             else:
                 self.result = "Invalid input"
@@ -223,5 +226,7 @@ if __name__ == "__main__":
             converter.result = "Enter a character"
         elif converter.state == converter.state == "dead" or converter.state == "consonant" or converter.state == "digraph": # If last input is not in a final state
             converter.result = "Input not available in Baybayin"
+        elif converter.state == "final_consonant": # If last input is a final consonant
+            converter.result = converter.result[:-1]
 
         print("Baybayin output:", converter.result)
