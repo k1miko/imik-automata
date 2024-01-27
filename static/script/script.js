@@ -257,11 +257,11 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.error('Error:', error));
 
         if(outputText.value = "Input not available in Baybayin" && outputLangDropdown.querySelector(".selected-script").dataset.value == "byn"){
-            outputText.style.color = "red";
             outputText.style.fontFamily = "";
             outputText.style.fontSize = "";
         }else{
-            outputText.style.color = "black";
+            outputText.style.color = "";
+            outputText.style.fontFamily = "Baybayin";
         }
 
     });
