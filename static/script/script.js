@@ -185,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Your existing script code
 
     const transliterateButton = document.getElementById("transliterate-button");
 
@@ -199,7 +198,6 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Input Script:", inputSelectedValue);
         console.log("Output Script:", outputSelectedValue);
 
-        // Add your transliteration logic here based on the selected values
     });
 });
 
