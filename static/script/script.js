@@ -187,6 +187,8 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function() {
 
     const transliterateButton = document.getElementById("transliterate-button");
+    const inputText = document.getElementById("input-text");
+    const outputText = document.getElementById("output-text");
 
     transliterateButton.addEventListener("click", () => {
         const inputLangDropdown = document.getElementById("input-script");
@@ -198,31 +200,18 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Input Script:", inputSelectedValue);
         console.log("Output Script:", outputSelectedValue);
 
+        fetch('/api/transliterate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({input: inputText.value})
+        })
+        .then(response => response.json())
+        .then(data => {
+            outputText.value = data.result;
+        })
+        .catch(error => console.error('Error:', error));
+
     });
 });
-
-
-/* swapping from one script to another
-const inputText = document.querySelector("#input-text")
-const outputText = document.querySelector("#output-text")
-const outputLanguage = inputLangDropdown.querySelector(".selected-script")
-const swapButton = document.querySelector(".swap-position")
-
-!! NOTE: Swap button won't be able to work bec
-we have yet  to add the transliteration between latin script to baybayin and vice versa 
-swapButton.addEventListener("click", (e) => {
-    const temp = inputLanguage.innerHTML;
-    inputLanguage.innerHTML = outputLanguage.innerHTML;
-    outputLanguage.innerHTML = temp;
-
-    const tempValue = inputLanguage.dataset.value
-    inputLanguage.dataset.value = outputLanguage.dataset.value
-    outputLanguage.dataset.value = tempValue
-
-    const tempInputText = inputTextElem.value
-    inputTextElem.value = outputTextElem.value
-    outputTextElem.value = tempIntputText
-}) !!*/
-
-// for uploading the photo
-// for copying the text
