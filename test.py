@@ -26,6 +26,7 @@ class LatinToBaybayinConverter:
 
     # Transition
     def transition(self, char):
+        
         # Start State
         if self.state == "start":
             # Input is a vowel
@@ -49,6 +50,7 @@ class LatinToBaybayinConverter:
             else:
                 self.result = "Invalid input"
                 return True
+            
         # Consonant State 
         elif self.state == "consonant":
             # Input is a vowel forming a syllable
@@ -62,20 +64,16 @@ class LatinToBaybayinConverter:
                     self.state = "digraph"
                     self.result = self.result + char
                 else:
-                    self.state = "check"
+                    self.state = "dead"
                     self.result = self.result + char
             # Input is a space
             elif char.isspace():
-                if len(self.result) > 1:
-                    self.state = "space"
-                    self.result = self.result[:-1] # Remove last consonant before space
-                    self.result = self.result + char # Add space
-                else: # A space after the first consonant is invalid
-                    self.state = "check"
-                    self.result = self.result + char
+                self.state = "dead"
+                self.result = self.result + char
             else:
                 self.result = "Invalid input"
                 return True
+            
         # Vowel State
         elif self.state == "vowel":
             # Input is a vowel
@@ -98,6 +96,7 @@ class LatinToBaybayinConverter:
                 self.result = self.result + char
             else:
                 self.result = "Invalid input"
+
         # Syllable State
         elif self.state == "syllable":
             # Input is a vowel
@@ -108,12 +107,11 @@ class LatinToBaybayinConverter:
             elif char.lower() in consonants_lower or char.upper() in consonants_upper:
                 # Consonant can form a digraph
                 if char.lower() in consonants_for_digraph or char.upper() in consonants_for_digraph_upper:
-                    self.state = "consonant"
-                    self.result = self.result + char
+                    self.state = "final_consonant"
                     self.digraph = True
                 else:
-                    self.state = "consonant"
-                    self.result = self.result + char
+                    self.state = "final_consonant"
+                    self.result = self.result
             # Input is a space
             elif char.isspace():
                 self.state = "space"
@@ -130,11 +128,11 @@ class LatinToBaybayinConverter:
                 self.digraph = False
             # Input is a consonant
             elif char.lower() in consonants_lower or char.upper() in consonants_upper:
-                self.state = "check"
+                self.state = "dead"
                 self.result = self.result + char
             # Input is a space
             elif char.isspace():
-                self.state = "check"
+                self.state = "dead"
                 self.result = self.result + char
             else:
                 self.result = "Invalid input"
@@ -162,25 +160,35 @@ class LatinToBaybayinConverter:
             else:
                 self.result = "Invalid input"
                 return True
-        # Check State
-        elif self.state == "check":
+            
+        # Final consonant State
+        elif self.state == "final_consonant":
             # Input is a vowel
             if char.lower() in vowels_lower or char.upper() in vowels_upper:
                 self.state = "syllable"
-                keep = self.result[-1]
-                self.result = self.result[:-2]
-                self.result = self.result + keep + char
+                self.result = self.result[:-1]
+                self.result = self.result + char
             # Input is a consonant
             elif char.lower() in consonants_lower or char.upper() in consonants_upper:
-                self.state = "dead"
-                self.result = self.result + char
+                # Consonant can form a digraph
+                if char.lower() in second_consonants_for_digraph_lower or char.upper() in second_consonants_for_digraph_upper and self.digraph == True:
+                    self.state = "digraph"
+                    self.result = self.result + char
+                elif char.lower() in consonants_for_digraph or char.upper() in consonants_for_digraph_upper:
+                    self.state = "consonant"
+                    self.result = self.result + char
+                    self.digraph = True
+                else:
+                    self.state = "consonant"
+                    self.result = self.result + char
             # Input is a space
             elif char.isspace():
-                self.state = "dead"
+                self.state = "space"
                 self.result = self.result + char
             else:
                 self.result = "Invalid input"
                 return True
+            
         elif self.state == "dead":
             # Input is a vowel
             if char.lower() in vowels_lower or char.upper() in vowels_upper:
@@ -214,10 +222,7 @@ if __name__ == "__main__":
         if converter.state == "start": # If input is only in a start state
             converter.result = "Enter a character"
         elif converter.state == "consonant": # If last input is a consonant
-            if len(converter.result) == 1: # If input is only a consonant
-                converter.result = "Input not available in Baybayin"
-            else:
-                converter.result = converter.result[:-1]  # Exclude the consonant character
+            converter.result = "Input not available in Baybayin"
         elif converter.state == "check" or converter.state == "dead": # If last input is in a check or dead state
             converter.result = "Input not available in Baybayin"
 
