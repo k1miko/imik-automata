@@ -148,11 +148,13 @@ body{
 
 /* the active choice */
 .dropdown-container.active .dropdown-menu li.active{
+    color: var(--primary-text-color);
     background-color: var(--another-color);
 }
 
 /* when hovering the scripts selection aka the li */
 .dropdown-container.active .dropdown-menu li:not(.active):hover{
+    color: var(--primary-text-color);
     background-color: var(--light-bg-color);
 }
 
