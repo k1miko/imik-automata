@@ -51,56 +51,129 @@ space_button.addEventListener('click', () => {
     textarea.value = chars.join('')
 })
 
-// for the dropdown to function
-function populateDropdown(dropdown, options){
-    dropdown.querySelector("ul").innerHTML = "";
-    options.forEach(option => {
-        const li = document.createElement("li");
-        const title = option.name + " (" + option.native + ")";
-        li.innerHTML = title;
-        li.dataset.value = option.code;
-        li.classList.add("option")
-        dropdown.querySelector("ul").appendChild(li);
-    })
-}
+document.addEventListener("DOMContentLoaded", function() {
+    const inputLangDropdown = document.getElementById("input-script");
+    const outputLangDropdown = document.getElementById("output-script");
+    const inputText = document.getElementById("input-text");
+    const outputText = document.getElementById("output-text");
+    const swapButton = document.querySelector(".swap-position");
 
-// for the functionality of the input dropdown
-populateDropdown(inputLangDropdown, languages);
-populateDropdown(outputLangDropdown, languages);
+    // Populate dropdowns with language options
+    populateDropdown(inputLangDropdown, languages);
+    populateDropdown(outputLangDropdown, languages);
 
-// when clicking the dropdown
-dropdowns.forEach(dropdown => {
-    dropdown.addEventListener("click", (e) => {
-        dropdown.classList.toggle("active");
-    })
+    const inputDropdownOptions = inputLangDropdown.querySelectorAll(".option");
+    const outputDropdownOptions = outputLangDropdown.querySelectorAll(".option");
 
-    dropdown.querySelectorAll(".option").forEach(item => {
-        item.addEventListener("click", (e) => {
-            dropdown.querySelectorAll(".option").forEach(item => { // for removing what's currently selected
-                item.classList.remove("active");
-            })
+    // Function to deactivate all options in a dropdown
+    function deactivateOptions(dropdownOptions) {
+        dropdownOptions.forEach(option => {
+            option.classList.remove("active");
+        });
+    }
 
-            // then add or display the selected as the active now
+    // Function to swap input and output dropdowns
+    function swapDropdowns() {
+        // Swap dropdown values
+        const tempValue = inputLangDropdown.querySelector(".selected-script").dataset.value;
+        inputLangDropdown.querySelector(".selected-script").dataset.value = outputLangDropdown.querySelector(".selected-script").dataset.value;
+        outputLangDropdown.querySelector(".selected-script").dataset.value = tempValue;
+
+        // Swap dropdown states
+        const tempInnerHTML = inputLangDropdown.querySelector(".selected-script").innerHTML;
+        inputLangDropdown.querySelector(".selected-script").innerHTML = outputLangDropdown.querySelector(".selected-script").innerHTML;
+        outputLangDropdown.querySelector(".selected-script").innerHTML = tempInnerHTML;
+
+        // Swap active values
+        const tempActiveValue = inputLangDropdown.querySelector(".option.active").dataset.value;
+        inputLangDropdown.querySelector(".option.active").classList.remove("active");
+        outputLangDropdown.querySelector(`.option[data-value="${tempValue}"]`).classList.add("active");
+
+        outputLangDropdown.querySelector(".option.active").classList.remove("active");
+        inputLangDropdown.querySelector(`.option[data-value="${tempActiveValue}"]`).classList.add("active");
+
+        // Swap input and output text
+        const tempText = inputText.value;
+        inputText.value = outputText.value;
+        outputText.value = tempText;
+    }
+
+    swapButton.addEventListener("click", () => {
+        swapDropdowns();
+    });
+
+    inputLangDropdown.addEventListener("click", () => {
+        inputLangDropdown.classList.toggle("active");
+    });
+
+    inputDropdownOptions.forEach(item => {
+        item.addEventListener("click", () => {
+            deactivateOptions(inputDropdownOptions);
             item.classList.add("active");
-            const selected = dropdown.querySelector(".selected-script");
+
+            const selected = inputLangDropdown.querySelector(".selected-script");
             selected.innerHTML = item.innerHTML;
             selected.dataset.value = item.dataset.value;
-        })
-})
-})
 
-// for the dropdown too hehe
-document.addEventListener("click", (e) => {
-    dropdowns.forEach(dropdown => {
-        if (!dropdown.contains(e.target)) {
-            dropdown.classList.remove("active");
-        }
-    })
-})
+            // Find the corresponding option in the output dropdown
+            const outputOption = outputLangDropdown.querySelector(`.option[data-value="${item.dataset.value === "lat" ? "byn" : "lat"}"]`);
+            deactivateOptions(outputDropdownOptions);
+            outputOption.classList.add("active");
+
+            const outputSelected = outputLangDropdown.querySelector(".selected-script");
+            outputSelected.innerHTML = outputOption.innerHTML;
+            outputSelected.dataset.value = outputOption.dataset.value;
+        });
+    });
+
+    outputLangDropdown.addEventListener("click", () => {
+        outputLangDropdown.classList.toggle("active");
+    });
+
+    outputDropdownOptions.forEach(item => {
+        item.addEventListener("click", () => {
+            deactivateOptions(outputDropdownOptions);
+            item.classList.add("active");
+
+            const selected = outputLangDropdown.querySelector(".selected-script");
+            selected.innerHTML = item.innerHTML;
+            selected.dataset.value = item.dataset.value;
+
+            // Find the corresponding option in the input dropdown
+            const inputOption = inputLangDropdown.querySelector(`.option[data-value="${item.dataset.value === "lat" ? "byn" : "lat"}"]`);
+            deactivateOptions(inputDropdownOptions);
+            inputOption.classList.add("active");
+
+            const inputSelected = inputLangDropdown.querySelector(".selected-script");
+            inputSelected.innerHTML = inputOption.innerHTML;
+            inputSelected.dataset.value = inputOption.dataset.value;
+        });
+    });
+});
+
+// Function to populate the dropdown with language options
+function populateDropdown(dropdown, languages) {
+    const dropdownMenu = dropdown.querySelector(".dropdown-menu");
+    languages.forEach(language => {
+        const option = document.createElement("li");
+        option.classList.add("option");
+        option.dataset.value = language.code;
+        option.textContent = language.name;
+        dropdownMenu.appendChild(option);
+    });
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Set the placeholder text in its original case
+    var placeholderText = "Enter Latin Script text here...";
+    document.getElementById("input-text").setAttribute("placeholder", placeholderText);
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     var baybayinKeyboard = document.querySelector('.card-baybayin-keyboard');
-    var toggleButton = document.getElementById('toggle-keyboard-button');
+    var toggleButton = document.getElementById('keyboard-display');
 
     // Add click event listener to the toggle button
     if (toggleButton) {
@@ -110,6 +183,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const transliterateButton = document.getElementById("transliterate-button");
+
+    transliterateButton.addEventListener("click", () => {
+        const inputLangDropdown = document.getElementById("input-script");
+        const outputLangDropdown = document.getElementById("output-script");
+        
+        const inputSelectedValue = inputLangDropdown.querySelector(".selected-script").dataset.value;
+        const outputSelectedValue = outputLangDropdown.querySelector(".selected-script").dataset.value;
+
+        console.log("Input Script:", inputSelectedValue);
+        console.log("Output Script:", outputSelectedValue);
+
+    });
+});
+
 
 /* swapping from one script to another
 const inputText = document.querySelector("#input-text")

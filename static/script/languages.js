@@ -1,18 +1,12 @@
 const languages = [
     {
         no: "0",
-        name: "Script",
-        native: "Choose one",
-        code: "auto",
-    },
-    {
-        no: "1",
         name: "Latin Script",
         native: "ABCD...",
         code: "lat",
     },
     {
-        no: "2",
+        no: "1",
         name: "Baybayin Script",
         native: "Baybayin",
         code: "byn",
