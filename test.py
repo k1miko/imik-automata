@@ -221,7 +221,7 @@ if __name__ == "__main__":
         # Checks for final state
         if converter.state == "start": # If input is only in a start state
             converter.result = "Enter a character"
-        elif converter.state == converter.state == "dead" or converter.state == "consonant" or converter.state == "digraph": # If last input is not a final state
+        elif converter.state == converter.state == "dead" or converter.state == "consonant" or converter.state == "digraph": # If last input is not in a final state
             converter.result = "Input not available in Baybayin"
 
         print("Baybayin output:", converter.result)
