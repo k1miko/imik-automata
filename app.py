@@ -6,7 +6,6 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-<<<<<<<<< Temporary merge branch 1
 @app.route('/api/transliterate', methods=['POST'])
 def translit_from_latin_to_baybayin():
     data = request.get_json()
@@ -25,11 +24,11 @@ def translit_from_latin_to_baybayin():
 
     return jsonify({'result': result})
 
-=========
+
 @app.route('/about') 
 def about():
     return render_template('about.html')
->>>>>>>>> Temporary merge branch 2
+
 
 if __name__ == '__main__':
     app.run(debug=True)
