@@ -35,11 +35,10 @@ class LatinToBaybayin:
 
     # Graphical Notation of Transition in PDA
     def transition_function(self, a, b=None):
-        input_symbol = a
         if b is not None:
-            popped_value = self.pop()
+            self.pop()
             # Process popped_value if needed
-        self.push(input_symbol)
+        self.push(a)
 
     # Transition 
     def transition(self, char):
