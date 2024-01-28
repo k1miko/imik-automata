@@ -23,5 +23,10 @@ def translit_from_latin_to_baybayin():
     return jsonify({'result': result})
 
 
+@app.route('/about') 
+def about():
+    return render_template('about.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
