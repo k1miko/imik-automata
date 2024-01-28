@@ -38,7 +38,8 @@ class LatinToBaybayin:
         if b is not None:
             self.pop()
             # Process popped_value if needed
-        self.push(a)
+        if a is not None:
+            self.push(a)
 
     # Transition 
     def transition(self, char):
@@ -144,7 +145,7 @@ class LatinToBaybayin:
             elif char.lower() in consonants_lower or char.upper() in consonants_upper:
                 # Consonant can form a digraph
                 if char.lower() in second_consonants_for_digraph_lower or char.upper() in second_consonants_for_digraph_upper and self.digraph == True:
-                    self.state = "digraph"
+                    self.state = "final_digraph"
                     self.transition_function(char)
                 elif char.lower() in consonants_for_digraph or char.upper() in consonants_for_digraph_upper:
                     self.state = "consonant"
@@ -156,6 +157,32 @@ class LatinToBaybayin:
             elif char.isspace():
                 self.state = "space"
                 self.transition_function(char, "final consonant")
+            else:
+                self.stack = ["Invalid Output"]  
+
+        elif self.state == "final_digraph":
+            # Input is a vowel
+            if char.lower() in vowels_lower or char.upper() in vowels_upper:
+                self.state = "syllable"
+                self.digraph = False
+                self.transition_function(char)
+            # Input is a consonant
+            elif char.lower() in consonants_lower or char.upper() in consonants_upper:
+                # Consonant can form a digraph
+                if char.lower() in consonants_for_digraph or char.upper() in consonants_for_digraph_upper:
+                    self.state = "consonant"
+                    self.digraph = True
+                    self.transition_function(None, "final_consonant")
+                    self.transition_function(char, "final_digraph")
+
+                else:
+                    self.state = "consonant"
+                    self.transition_function(None, "final_consonant")
+                    self.transition_function(char, "final_digraph")
+            elif char.isspace():
+                self.state = "space"
+                self.transition_function(None, "final_consonant")
+                self.transition_function(char, "final_digraph")
             else:
                 self.stack = ["Invalid Output"]  
                 
@@ -208,5 +235,7 @@ if __name__ == "__main__":
             
         elif pda.state == "final_consonant": # If last input is a final consonant
             result = result[:-1]
+        elif pda.state == "final_digraph": # If last input is a final digraph
+            result = result[:-2]
         
         print("Baybayin output:", result)
