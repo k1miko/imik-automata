@@ -8,6 +8,8 @@ const delete_button = document.querySelector('.delete')
 /* when putting space in the text area */
 const space_button = document.querySelector('.space')
 
+// copying output to clipboard
+
 // for the dropdown function
 const dropdowns = document.querySelectorAll('.dropdown-container'),
       inputLangDropdown = document.querySelector('#input-script'),
@@ -92,10 +94,20 @@ document.addEventListener("DOMContentLoaded", function() {
         outputLangDropdown.querySelector(".option.active").classList.remove("active");
         inputLangDropdown.querySelector(`.option[data-value="${tempActiveValue}"]`).classList.add("active");
 
-        // Swap input and output text
-        const tempText = inputText.value;
-        inputText.value = outputText.value;
-        outputText.value = tempText;
+        inputText.value = "";
+        outputText.value = "";
+
+        if (inputLangDropdown.querySelector(".selected-script").dataset.value == "byn") {
+            inputText.style.fontFamily = "Baybayin";
+            inputText.style.fontSize = "40px";
+            outputText.style.fontFamily = "";
+            outputText.style.fontSize = "";
+        }else{
+            outputText.style.fontFamily = "Baybayin";
+            outputText.style.fontSize = "40px";
+            inputText.style.fontFamily = "";
+            inputText.style.fontSize = "";
+        }
     }
 
     swapButton.addEventListener("click", () => {
@@ -123,6 +135,22 @@ document.addEventListener("DOMContentLoaded", function() {
             const outputSelected = outputLangDropdown.querySelector(".selected-script");
             outputSelected.innerHTML = outputOption.innerHTML;
             outputSelected.dataset.value = outputOption.dataset.value;
+
+            // Clear input and output text
+            inputText.value = "";
+            outputText.value = "";
+
+            if (item.dataset.value === "byn") {
+                inputText.style.fontFamily = "Baybayin";
+                inputText.style.fontSize = "40px";
+                outputText.style.fontFamily = "";
+                outputText.style.fontSize = "";
+            }else{
+                outputText.style.fontFamily = "Baybayin";
+                outputText.style.fontSize = "40px";
+                inputText.style.fontFamily = "";
+                inputText.style.fontSize = "";
+            }
         });
     });
 
@@ -147,6 +175,23 @@ document.addEventListener("DOMContentLoaded", function() {
             const inputSelected = inputLangDropdown.querySelector(".selected-script");
             inputSelected.innerHTML = inputOption.innerHTML;
             inputSelected.dataset.value = inputOption.dataset.value;
+
+            // Clear input and output text
+            inputText.value = "";
+            outputText.value = "";
+
+            //Make the text field font family changes to baybayin or latin
+            if (item.dataset.value === "byn") {
+                outputText.style.fontFamily = "Baybayin";
+                outputText.style.fontSize = "40px";
+                inputText.style.fontFamily = "";
+                inputText.style.fontSize = "";
+            }else{
+                inputText.style.fontFamily = "Baybayin";
+                inputText.style.fontSize = "40px";
+                outputText.style.fontFamily = "";
+                outputText.style.fontSize = "";
+            }
         });
     });
 });
@@ -187,6 +232,8 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function() {
 
     const transliterateButton = document.getElementById("transliterate-button");
+    const inputText = document.getElementById("input-text");
+    const outputText = document.getElementById("output-text");
 
     transliterateButton.addEventListener("click", () => {
         const inputLangDropdown = document.getElementById("input-script");
@@ -195,34 +242,34 @@ document.addEventListener("DOMContentLoaded", function() {
         const inputSelectedValue = inputLangDropdown.querySelector(".selected-script").dataset.value;
         const outputSelectedValue = outputLangDropdown.querySelector(".selected-script").dataset.value;
 
-        console.log("Input Script:", inputSelectedValue);
-        console.log("Output Script:", outputSelectedValue);
+
+        fetch('/api/transliterate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({input: inputText.value})
+        })
+        .then(response => response.json())
+        .then(data => {
+            outputText.value = data.result;
+        })
+        .catch(error => console.error('Error:', error));
+
+        if(outputText.value = "Input not available in Baybayin" && outputLangDropdown.querySelector(".selected-script").dataset.value == "byn"){
+            outputText.style.fontFamily = "";
+            outputText.style.fontSize = "";
+        }else{
+            outputText.style.color = "";
+            outputText.style.fontFamily = "Baybayin";
+        }
 
     });
 });
 
-
-/* swapping from one script to another
-const inputText = document.querySelector("#input-text")
-const outputText = document.querySelector("#output-text")
-const outputLanguage = inputLangDropdown.querySelector(".selected-script")
-const swapButton = document.querySelector(".swap-position")
-
-!! NOTE: Swap button won't be able to work bec
-we have yet  to add the transliteration between latin script to baybayin and vice versa 
-swapButton.addEventListener("click", (e) => {
-    const temp = inputLanguage.innerHTML;
-    inputLanguage.innerHTML = outputLanguage.innerHTML;
-    outputLanguage.innerHTML = temp;
-
-    const tempValue = inputLanguage.dataset.value
-    inputLanguage.dataset.value = outputLanguage.dataset.value
-    outputLanguage.dataset.value = tempValue
-
-    const tempInputText = inputTextElem.value
-    inputTextElem.value = outputTextElem.value
-    outputTextElem.value = tempIntputText
-}) !!*/
-
-// for uploading the photo
-// for copying the text
+function copyToClipboard(){
+    const element = document.querySelector('#output-text');
+    element.select();
+    element.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+}

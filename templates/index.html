@@ -60,7 +60,7 @@
                     <!-- dropdown -->
                     <div class="dropdown-container" id="input-script">
                         <div class="dropdown-toggle">
-                            <ion-icon name="help-outline"></ion-icon>
+                            <ion-icon name="book-outline"></ion-icon>
                             <span class="selected-script" data-value="auto">Choose a Script</span>
                             <ion-icon name="chevron-down-outline"></ion-icon>
                         </div>
@@ -103,7 +103,7 @@
                     <!-- dropdown -->
                     <div class="dropdown-container" id="output-script">
                         <div class="dropdown-toggle">
-                            <ion-icon name="help-outline"></ion-icon>
+                            <ion-icon name="book-outline"></ion-icon>
                             <span class="selected-script" data-value="auto">Choose a Script</span>
                             <ion-icon name="chevron-down-outline"></ion-icon>
                         </div>
@@ -115,11 +115,11 @@
                     </div>
                     <!-- txt area of the TO-->
                     <div class="text-area">
-                        <textarea id="output-text"  placeholder="The Baybayin equivalence is..."></textarea>
+                        <textarea id="output-text"  placeholder="The Baybayin equivalence is..." readonly></textarea>
                 </div>
                 <div class="card-bottom">
-                    <p>OR</p>
-                    <button id="copy-to-clipboard">
+                    <p>AND</p>
+                    <button id="copy-to-clipboard" onclick="copyToClipboard()">
                         <span>Copy to clipboard</span>
                     </button>
                 </div>
