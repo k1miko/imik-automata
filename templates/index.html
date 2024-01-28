@@ -27,6 +27,28 @@
         </style>
     </head>
     <body>
+
+        <nav class="navbar">
+            <!-- Logo -->
+            
+            <div class="navbar-logo">
+                <a href="{{ url_for('index') }}">
+                    <p class="baybayin-char-logo">A</p>
+                </a>
+                <a href="{{ url_for('index') }}">
+                    <div class="logo">
+                        <img src="{{ url_for('static', filename='css/images/logo3.png') }}" alt="Logo">
+                    </div>
+                </a>
+            </div>
+        
+
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+        </nav>
         <!-- for the container of the 3 divs --> 
         <div class="container">
             <!-- create a card for the FROM-->
