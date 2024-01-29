@@ -88,7 +88,7 @@ class LatinToBaybayin:
             elif char.lower() in consonants_lower or char.upper() in consonants_upper:
                 if char.lower() in second_consonants_for_digraph_lower or char.upper() in second_consonants_for_digraph_upper and self.digraph == True:
                     self.state = "digraph"
-                    self.transition_function(char)
+                    self.transition_function("ng", 'n')
                 else:
                     self.state = "dead"
                     self.transition_function(char)
@@ -146,7 +146,7 @@ class LatinToBaybayin:
                 # Consonant can form a digraph
                 if char.lower() in second_consonants_for_digraph_lower or char.upper() in second_consonants_for_digraph_upper and self.digraph == True:
                     self.state = "final_digraph"
-                    self.transition_function(char)
+                    self.transition_function("ng", 'n')
                 elif char.lower() in consonants_for_digraph or char.upper() in consonants_for_digraph_upper:
                     self.state = "consonant"
                     self.digraph = True
@@ -172,16 +172,13 @@ class LatinToBaybayin:
                 if char.lower() in consonants_for_digraph or char.upper() in consonants_for_digraph_upper:
                     self.state = "consonant"
                     self.digraph = True
-                    self.transition_function(None, "final_consonant")
                     self.transition_function(char, "final_digraph")
 
                 else:
                     self.state = "consonant"
-                    self.transition_function(None, "final_consonant")
                     self.transition_function(char, "final_digraph")
             elif char.isspace():
                 self.state = "space"
-                self.transition_function(None, "final_consonant")
                 self.transition_function(char, "final_digraph")
             else:
                 self.stack = ["Invalid Output"]  
