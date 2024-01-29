@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+        <link href="static/css/BaybayinDoctrinaClear.ttf" rel="stylesheet">
+        <link href="static/css/BaybayinDoctrinaClear.otf" rel="stylesheet">
+        <link href="static/css/BaybayinDoctrinaKudlit.otf" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tagalog&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pstyle.css') }}">
+        <title>Isulat mo, Ibaybay ko</title>
+    </head>
+    <body>
+        <nav class="navbar">
+            <!-- Logo -->
+            
+            <div class="navbar-logo">
+                <a href="{{ url_for('index') }}">
+                    <p class="baybayin-char-logo">A</p>
+                </a>
+                <a href="{{ url_for('index') }}">
+                    <div class="logo">
+                        <img src="{{ url_for('static', filename='css/images/logo3.png') }}" alt="Logo">
+                    </div>
+                </a>
+            </div>
+        
+        
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('practice') }}">Let's Practice!</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+        </nav>
+        <div id="canvasContainer">
+            <canvas id="topCanvas"></canvas>
+            <canvas id="centerCanvas"></canvas>
+            <canvas id="bottomCanvas"></canvas>
+        </div>
+        <script src="{{ url_for('static', filename='script/languages.js') }}"></script>
+        <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+        <script src="{{ url_for('static', filename='script/practice.js') }}"></script>
+    </body>
+</html>

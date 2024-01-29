@@ -27,6 +27,10 @@ def translit_from_latin_to_baybayin():
 def about():
     return render_template('about.html')
 
+@app.route('/practice') 
+def practice():
+    return render_template('practice.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
