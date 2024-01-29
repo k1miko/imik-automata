@@ -6,20 +6,13 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-
-@app.route('/about') 
-def about():
-    return render_template('about.html')
-  
 @app.route('/api/transliterate', methods=['POST'])
 def translit_from_latin_to_baybayin():
     data = request.get_json()
 
     if 'input' not in data:
         return jsonify({'error': 'Invalid request'}), 400
-
     input_str = data['input']
-
     converter = test.LatinToBaybayin()
     result = converter.process_input(input_str)
     if converter.state == converter.state == "dead" or converter.state == "consonant" or converter.state == "digraph": # If last input is not in a final state
@@ -28,6 +21,15 @@ def translit_from_latin_to_baybayin():
         result = result[:-1]
 
     return jsonify({'result': result})
+
+
+@app.route('/about') 
+def about():
+    return render_template('about.html')
+
+@app.route('/practice') 
+def practice():
+    return render_template('practice.html')
 
 
 if __name__ == '__main__':
