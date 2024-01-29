@@ -5,6 +5,7 @@ const languages = [
         native: "ABCD...",
         code: "lat",
     },
+    
     {
         no: "1",
         name: "Baybayin Script",
