@@ -27,6 +27,52 @@
         </style>
     </head>
     <body>
+
+        <nav class="navbar">
+            <!-- Logo -->
+            
+            <div class="navbar-logo">
+                <a href="{{ url_for('index') }}">
+                    <p class="baybayin-char-logo">A</p>
+                </a>
+                <a href="{{ url_for('index') }}">
+                    <div class="logo">
+                        <img src="{{ url_for('static', filename='css/images/logo3.png') }}" alt="Logo">
+                    </div>
+                </a>
+            </div>
+        
+
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li class="rules-menu">
+                    <a href="javascript:void(0)">Rules</a>
+                    <!-- Pop-down div for the rules -->
+                    <div class="rules-content">
+                        <h4>Latin to Baybayin Rules:</h4>
+                        <ul>
+                            <li>Each symbol represents one syllable.</li>
+                            <li>Syllable-final consonants are omitted.</li>
+                            <li>Sequential consonants, except for NG, are not allowed.</li>
+                            <li>NG functions as a single character, forming a digraph.</li>
+                            <li>Standalone consonants are not permitted.</li>
+                        </ul>
+                        <h4><br>Baybayin to Latin Rules:</h4>
+                        <ul>
+                            <li>Only consonant-vowel syllables are written.</li>
+                            <li>Kudlit modifies E, I, O, U sounds in syllables.</li>
+                            <li>Kudlit is exclusive to syllables, not vowels or itself.</li>
+                            <li>Independent vowels are used in consonant-less syllables.</li>
+                            <li>Two lines (||) denote sentence separation.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('practice') }}">Let's Practice!</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                
+            </ul>
+        </nav>
         <!-- for the container of the 3 divs --> 
         <div class="container">
             <!-- create a card for the FROM-->
@@ -93,7 +139,7 @@
                     </div>
                     <!-- txt area of the TO-->
                     <div class="text-area">
-                        <textarea id="output-text"  placeholder="The Baybayin equivalence is..."></textarea>
+                        <textarea id="output-text"  placeholder="The Baybayin equivalence is..." readonly></textarea>
                 </div>
                 <div class="card-bottom">
                     <p>AND</p>

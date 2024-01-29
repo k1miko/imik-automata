@@ -12,13 +12,24 @@ def translit_from_latin_to_baybayin():
 
     if 'input' not in data:
         return jsonify({'error': 'Invalid request'}), 400
-
     input_str = data['input']
-
-    converter = test.LatinToBaybayinConverter()
+    converter = test.LatinToBaybayin()
     result = converter.process_input(input_str)
+    if converter.state == converter.state == "dead" or converter.state == "consonant" or converter.state == "digraph": # If last input is not in a final state
+        result = "Input not available in Baybayin"
+    elif converter.state == "final_consonant": # If last input is a final consonant
+        result = result[:-1]
 
     return jsonify({'result': result})
+
+
+@app.route('/about') 
+def about():
+    return render_template('about.html')
+
+@app.route('/practice') 
+def practice():
+    return render_template('practice.html')
 
 
 if __name__ == '__main__':

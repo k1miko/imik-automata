@@ -2,12 +2,19 @@
 :root{
     --primary-color: #6fe3e3;
     --bg-color: #efefef;
-    --light-bg-color: #B3AEA8;
+    /* --light-bg-color: #B3AEA8; */
+    --light-bg-color: #cac5bf;
     --text-color: #231F20;
     --light-text-color: #646368;
     --primary-text-color: #ffffff;
     --other-color: #bebdbd;
     --another-color: #738290;
+
+}
+
+@font-face {
+    font-family: Baybayin;
+    src: url(BaybayinDoctrina.otf);
 }
 
 /* for the elements of HTML*/
@@ -20,6 +27,7 @@
 
 /* body of the HTML*/
 body{
+    margin-top: 20px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -27,6 +35,59 @@ body{
     justify-content: center;
     color: var(--text-color);
     background-color: var(--bg-color);
+} 
+
+.navbar {
+    background-color: #333;
+    padding: 10px;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Updated from 'space-between' to 'start' */
+    align-items: center;
+    z-index: 1000;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    max-height: 35px;
+    margin-top: 10px; /* Add margin between logo and text */
+}
+
+
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px; /* Adjust the spacing between menu items */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white; /* Set the color of the menu items */
+    font-weight: bold;
+    font-size: 16px; /* Adjust the font size of the menu items */
+}
+
+a{
+    text-decoration: none;
+}
+
+/* Add a hover effect to the menu items if desired */
+.nav-links a:hover {
+    color: #FFD700; /* Set the color when hovering */
 }
 
 /* container div */
@@ -46,10 +107,12 @@ body{
 .container .card{
     margin-top: -5em;
     width: 40em;
-    height: 540px;
+    height: 440px;
     padding: 30px;
     border-radius: 20px;
-    background-color: var(--light-bg-color);
+    background-color: var(--light-bg-color)
+    /* background: url('images/bgcarto.png') center/cover no-repeat var(--bg-color);
+    overflow: hidden; Hide overflowing content */
 }
 
 /* the heading of the card */
@@ -70,7 +133,14 @@ body{
 
 #input-text {
     text-transform: uppercase;
+    color:var(--text-color);
 }
+
+#output-text {
+    text-transform: uppercase;
+    color:var(--text-color);
+}
+
 
 /*dropdown-container */
 .dropdown-container{
@@ -161,13 +231,13 @@ body{
 /* text-area position*/
 .container .text-area{
     position: relative;
-    height: 330px;
+    height: 230px;
 }
 
 /* text area itself */
 .container textarea{
     width: 100%;
-    height: 330px;
+    height: 230px;
     padding: 20px;
     margin: 10px 0;
     background-color: transparent;
@@ -328,6 +398,16 @@ body{
     font-family: 'BaybayinDoctrinaClear', sans-serif; /* Use your custom font and fallbacks */
 }
 
+.baybayin-char-logo {
+    display: block; /* Ensures the Latin script appears on the next line */
+    font-size: 2.8em; /* Adjust size as needed */
+    font-family: 'BaybayinDoctrinaClear', sans-serif; /* Use your custom font and fallbacks */
+    color: #ffffff;
+    margin-right: 3px;
+    margin-bottom: 7px;
+    margin-left: 10px;
+}
+
 .baybayin-kudlit {
     display: block; /* Ensures the Latin script appears on the next line */
     font-size: 1.5em; /* Adjust size as needed */
@@ -341,6 +421,8 @@ body{
     font-size: 0.7em; /* Smaller font size */
     line-height: 1; /* Adjust spacing as needed */
 }
+
+
 
 /* delete button */
 .card-baybayin-keyboard .row .del {
@@ -398,9 +480,89 @@ body{
     align-content: center;
 }
 
+/* About Page */
+ 
+.about-container {
+    text-align: center; /* Centers text elements */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers block-level elements */
+}
+
+.imik-container {
+    text-align: center; /* Centers text elements */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers block-level elements */
+    width: 60em;
+    margin-top: 40px;
+    margin-bottom: -10px;
+}
+
+.mission-container {
+    text-align: center; /* Centers text elements */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers block-level elements */
+    width: 600em;
+    margin-top: 0;
+}
 
 
+.about-mission {
+    margin-top: 1.5em;
+}
 
+.our-team {
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+}
+
+
+/* Rules pop-down content styling */
+.rules-menu {
+    position: relative; /* Position relative to allow absolute positioning of the pop-down */
+}
+/* NOT SCROLLABLE */
+.rules-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9; 
+    min-width: 535px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+    z-index: 1;
+    border-radius: 5px; 
+    padding: 12px 16px; 
+    margin-left: -255px;
+}
+/* SCROLLABLE */
+/* .rules-content {
+    display: none; 
+    position: absolute;
+    background-color: #f9f9f9; 
+    min-width: 330px;
+    max-height: 200px; 
+    overflow: auto; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+    z-index: 1;
+    border-radius: 5px; 
+    padding-left: 20px;
+    margin-left: -100px;
+} */
+
+.rules-menu:hover .rules-content {
+    display: block; 
+}
+
+
+.rules-content h4 {
+    margin-top: 0;
+}
+
+.rules-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
 /* max width when you move your browser? */
 @media(max-width: 800px){
     .container{

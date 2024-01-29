@@ -94,10 +94,20 @@ document.addEventListener("DOMContentLoaded", function() {
         outputLangDropdown.querySelector(".option.active").classList.remove("active");
         inputLangDropdown.querySelector(`.option[data-value="${tempActiveValue}"]`).classList.add("active");
 
-        // Swap input and output text
-        const tempText = inputText.value;
-        inputText.value = outputText.value;
-        outputText.value = tempText;
+        inputText.value = "";
+        outputText.value = "";
+
+        if (inputLangDropdown.querySelector(".selected-script").dataset.value == "byn") {
+            inputText.style.fontFamily = "Baybayin";
+            inputText.style.fontSize = "40px";
+            outputText.style.fontFamily = "";
+            outputText.style.fontSize = "";
+        }else{
+            outputText.style.fontFamily = "Baybayin";
+            outputText.style.fontSize = "40px";
+            inputText.style.fontFamily = "";
+            inputText.style.fontSize = "";
+        }
     }
 
     swapButton.addEventListener("click", () => {
@@ -125,6 +135,22 @@ document.addEventListener("DOMContentLoaded", function() {
             const outputSelected = outputLangDropdown.querySelector(".selected-script");
             outputSelected.innerHTML = outputOption.innerHTML;
             outputSelected.dataset.value = outputOption.dataset.value;
+
+            // Clear input and output text
+            inputText.value = "";
+            outputText.value = "";
+
+            if (item.dataset.value === "byn") {
+                inputText.style.fontFamily = "Baybayin";
+                inputText.style.fontSize = "40px";
+                outputText.style.fontFamily = "";
+                outputText.style.fontSize = "";
+            }else{
+                outputText.style.fontFamily = "Baybayin";
+                outputText.style.fontSize = "40px";
+                inputText.style.fontFamily = "";
+                inputText.style.fontSize = "";
+            }
         });
     });
 
@@ -149,6 +175,23 @@ document.addEventListener("DOMContentLoaded", function() {
             const inputSelected = inputLangDropdown.querySelector(".selected-script");
             inputSelected.innerHTML = inputOption.innerHTML;
             inputSelected.dataset.value = inputOption.dataset.value;
+
+            // Clear input and output text
+            inputText.value = "";
+            outputText.value = "";
+
+            //Make the text field font family changes to baybayin or latin
+            if (item.dataset.value === "byn") {
+                outputText.style.fontFamily = "Baybayin";
+                outputText.style.fontSize = "40px";
+                inputText.style.fontFamily = "";
+                inputText.style.fontSize = "";
+            }else{
+                inputText.style.fontFamily = "Baybayin";
+                inputText.style.fontSize = "40px";
+                outputText.style.fontFamily = "";
+                outputText.style.fontSize = "";
+            }
         });
     });
 });
@@ -199,8 +242,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const inputSelectedValue = inputLangDropdown.querySelector(".selected-script").dataset.value;
         const outputSelectedValue = outputLangDropdown.querySelector(".selected-script").dataset.value;
 
-        console.log("Input Script:", inputSelectedValue);
-        console.log("Output Script:", outputSelectedValue);
 
         fetch('/api/transliterate', {
             method: 'POST',
@@ -215,6 +256,14 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error:', error));
 
+        if(outputText.value = "Input not available in Baybayin" && outputLangDropdown.querySelector(".selected-script").dataset.value == "byn"){
+            outputText.style.fontFamily = "";
+            outputText.style.fontSize = "";
+        }else{
+            outputText.style.color = "";
+            outputText.style.fontFamily = "Baybayin";
+        }
+
     });
 });
 
@@ -224,3 +273,13 @@ function copyToClipboard(){
     element.setSelectionRange(0, 99999);
     document.execCommand('copy');
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    var rulesMenu = document.querySelector('.rules-menu');
+    var rulesContent = document.querySelector('.rules-content');
+    
+    rulesMenu.addEventListener('click', function() {
+        var isDisplayed = window.getComputedStyle(rulesContent).display !== 'none';
+        rulesContent.style.display = isDisplayed ? 'none' : 'block';
+    });
+});
