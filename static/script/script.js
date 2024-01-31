@@ -97,17 +97,17 @@ document.addEventListener("DOMContentLoaded", function() {
         inputText.value = "";
         outputText.value = "";
 
-        if (inputLangDropdown.querySelector(".selected-script").dataset.value == "byn") {
-            inputText.style.fontFamily = "Baybayin";
-            inputText.style.fontSize = "40px";
-            outputText.style.fontFamily = "";
-            outputText.style.fontSize = "";
-        }else{
-            outputText.style.fontFamily = "Baybayin";
-            outputText.style.fontSize = "40px";
-            inputText.style.fontFamily = "";
-            inputText.style.fontSize = "";
-        }
+        // if (inputLangDropdown.querySelector(".selected-script").dataset.value == "byn") {
+        //     inputText.style.fontFamily = "Baybayin";
+        //     inputText.style.fontSize = "40px";
+        //     outputText.style.fontFamily = "";
+        //     outputText.style.fontSize = "";
+        // }else{
+        //     outputText.style.fontFamily = "Baybayin";
+        //     outputText.style.fontSize = "40px";
+        //     inputText.style.fontFamily = "";
+        //     inputText.style.fontSize = "";
+        // }
     }
 
     swapButton.addEventListener("click", () => {
@@ -140,17 +140,17 @@ document.addEventListener("DOMContentLoaded", function() {
             inputText.value = "";
             outputText.value = "";
 
-            if (item.dataset.value === "byn") {
-                inputText.style.fontFamily = "Baybayin";
-                inputText.style.fontSize = "40px";
-                outputText.style.fontFamily = "";
-                outputText.style.fontSize = "";
-            }else{
-                outputText.style.fontFamily = "Baybayin";
-                outputText.style.fontSize = "40px";
-                inputText.style.fontFamily = "";
-                inputText.style.fontSize = "";
-            }
+            // if (item.dataset.value === "byn") {
+            //     inputText.style.fontFamily = "Baybayin";
+            //     inputText.style.fontSize = "40px";
+            //     outputText.style.fontFamily = "";
+            //     outputText.style.fontSize = "";
+            // }else{
+            //     outputText.style.fontFamily = "Baybayin";
+            //     outputText.style.fontSize = "40px";
+            //     inputText.style.fontFamily = "";
+            //     inputText.style.fontSize = "";
+            // }
         });
     });
 
@@ -181,17 +181,17 @@ document.addEventListener("DOMContentLoaded", function() {
             outputText.value = "";
 
             //Make the text field font family changes to baybayin or latin
-            if (item.dataset.value === "byn") {
-                outputText.style.fontFamily = "Baybayin";
-                outputText.style.fontSize = "40px";
-                inputText.style.fontFamily = "";
-                inputText.style.fontSize = "";
-            }else{
-                inputText.style.fontFamily = "Baybayin";
-                inputText.style.fontSize = "40px";
-                outputText.style.fontFamily = "";
-                outputText.style.fontSize = "";
-            }
+            // if (item.dataset.value === "byn") {
+            //     outputText.style.fontFamily = "Baybayin";
+            //     outputText.style.fontSize = "40px";
+            //     inputText.style.fontFamily = "";
+            //     inputText.style.fontSize = "";
+            // }else{
+            //     inputText.style.fontFamily = "Baybayin";
+            //     inputText.style.fontSize = "40px";
+            //     outputText.style.fontFamily = "";
+            //     outputText.style.fontSize = "";
+            // }
         });
     });
 });
@@ -242,28 +242,38 @@ document.addEventListener("DOMContentLoaded", function() {
         const inputSelectedValue = inputLangDropdown.querySelector(".selected-script").dataset.value;
         const outputSelectedValue = outputLangDropdown.querySelector(".selected-script").dataset.value;
 
+        const isLatinToBaybayin = (inputSelectedValue === "lat" && outputSelectedValue === "byn");
+        const isBaybayinToLatin = (inputSelectedValue === "byn" && outputSelectedValue === "lat");
 
-        fetch('/api/transliterate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({input: inputText.value})
-        })
-        .then(response => response.json())
-        .then(data => {
-            outputText.value = data.result;
-        })
-        .catch(error => console.error('Error:', error));
+        if (isLatinToBaybayin || isBaybayinToLatin) {
+            const apiEndpoint = isLatinToBaybayin ? '/api/transliterate/latin-to-baybayin' : '/api/transliterate/baybayin-to-latin';
 
-        if(outputText.value = "Input not available in Baybayin" && outputLangDropdown.querySelector(".selected-script").dataset.value == "byn"){
-            outputText.style.fontFamily = "";
-            outputText.style.fontSize = "";
-        }else{
-            outputText.style.color = "";
-            outputText.style.fontFamily = "Baybayin";
+            fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input: inputText.value })
+            })
+            .then(response => response.json())
+            .then(data => {
+                outputText.value = data.result;
+
+                // Handle styling based on the result
+                // if (outputText.value === "Input not available in Baybayin" && isBaybayinToLatin) {
+                //     outputText.style.fontFamily = "Baybayin";
+                //     outputText.style.fontSize = "40px";
+                //     inputText.style.fontFamily = "";
+                //     inputText.style.fontSize = "";
+                // } else {
+                //     outputText.style.color = "";
+                //     outputText.style.fontFamily = isLatinToBaybayin ? "Baybayin" : "";
+                // }
+            })
+            .catch(error => console.error('Error:', error));
+        } else {
+            console.error('Invalid conversion selected');
         }
-
     });
 });
 
