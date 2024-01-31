@@ -44,7 +44,7 @@ def translit_from_baybayin_to_latin():
 
     converter = baybayin.BaybayinToLatin()
     result = converter.process_input(input_str, syllabic)
-    if converter.state == "start": # If input is only in a start state
+    if converter.state == "": # If input is only in a start state
         result = "Enter a character"
     elif converter.state == "dead": # If last input is not in a final state
         result = "Input not available in Baybayin"
