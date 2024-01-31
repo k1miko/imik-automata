@@ -273,3 +273,13 @@ function copyToClipboard(){
     element.setSelectionRange(0, 99999);
     document.execCommand('copy');
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    var rulesMenu = document.querySelector('.rules-menu');
+    var rulesContent = document.querySelector('.rules-content');
+    
+    rulesMenu.addEventListener('click', function() {
+        var isDisplayed = window.getComputedStyle(rulesContent).display !== 'none';
+        rulesContent.style.display = isDisplayed ? 'none' : 'block';
+    });
+});
