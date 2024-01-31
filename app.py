@@ -41,7 +41,7 @@ def translit_from_baybayin_to_latin():
         return jsonify({'error': 'Invalid syllabic'}), 400
     
     converter = BaybayinToLatin()
-    result = converter.process_input(input_str)
+    result = converter.process_input(input_str, syllabic)
 
     if converter.state == "start": # If input is only in a start state
             result = "Enter a character"
