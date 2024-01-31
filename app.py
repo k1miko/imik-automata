@@ -44,7 +44,7 @@ def translit_from_baybayin_to_latin():
 
     converter = baybayin.BaybayinToLatin()
     result = converter.process_input(input_str, syllabic)
-    if converter.state == "start": # If input is only in a start state
+    if converter.state == "": # If input is only in a start state
         result = "Enter a character"
     elif converter.state == "dead": # If last input is not in a final state
         result = "Input not available in Baybayin"
@@ -63,39 +63,10 @@ def practice():
 if not os.path.exists('img'):
     os.makedirs('img')
 
-
 # Your existing routes...
-
-
-# @app.route('/api/capture_canvas', methods=['POST'])
-# def capture_canvas():
-#     data = request.get_json()
-
-#     if 'canvasId' not in data or 'dataURL' not in data:
-#         return jsonify({'success': False, 'error': 'Invalid request'}), 400
-
-#     canvas_id = data['canvasId']
-#     data_url = data['dataURL']
-
-#     # Assuming you have a function to convert base64 data URL to an image, modify accordingly
-#     image = convert_data_url_to_image(data_url)
-
-#     # Save the image to the 'img' directory
-#     image.save(f'img/{canvas_id}_output.png')
-
-#     # Print a message to the terminal
-#     print(f'Image from {canvas_id} captured and saved successfully.')
-
-#     # Return success response with the image URL
-#     return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
-
-# Define a global counter to keep track of the image files
-image_counter = 0
 
 @app.route('/api/capture_canvas', methods=['POST'])
 def capture_canvas():
-    global image_counter
-
     data = request.get_json()
 
     if 'canvasId' not in data or 'dataURL' not in data:
@@ -107,15 +78,11 @@ def capture_canvas():
     # Assuming you have a function to convert base64 data URL to an image, modify accordingly
     image = convert_data_url_to_image(data_url)
 
-    # Save the image to the 'img' directory with an incrementing file name
-    image_filename = f'img/{canvas_id}_{image_counter}_output.png'
-    image.save(image_filename)
+    # Save the image to the 'img' directory
+    image.save(f'img/{canvas_id}_output.png')
 
     # Print a message to the terminal
-    print(f'Image from {canvas_id} captured and saved as {image_filename}.')
-
-    # Increment the image counter
-    image_counter += 1
+    print(f'Image from {canvas_id} captured and saved successfully.')
 
     # Return success response with the image URL
     return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
@@ -132,6 +99,8 @@ def convert_data_url_to_image(data_url):
     image = Image.open(image_data)
 
     return image
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
