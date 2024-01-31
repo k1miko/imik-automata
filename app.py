@@ -39,8 +39,6 @@ def practice():
 if not os.path.exists('img'):
     os.makedirs('img')
 
-# Your existing routes...
-
 @app.route('/api/capture_canvas', methods=['POST'])
 def capture_canvas():
     data = request.get_json()
@@ -75,8 +73,6 @@ def convert_data_url_to_image(data_url):
     image = Image.open(image_data)
 
     return image
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
