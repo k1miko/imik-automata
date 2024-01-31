@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, send_file
 from io import BytesIO
 import test
-from baybayin import BaybayinToLatin
+import baybayin
 from PIL import Image
 import base64
 import os
@@ -37,21 +37,17 @@ syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "P
 def translit_from_baybayin_to_latin():
     data = request.get_json()
 
+
     if 'input' not in data:
         return jsonify({'error': 'Invalid request'}), 400
-    
     input_str = data['input']
 
-    if input_str not in syllabic:
-        return jsonify({'error': 'Invalid syllabic'}), 400
-    
-    converter = BaybayinToLatin()
-    result = converter.process_input(input_str)
-
+    converter = baybayin.BaybayinToLatin()
+    result = converter.process_input(input_str, syllabic)
     if converter.state == "start": # If input is only in a start state
-            result = "Enter a character"
+        result = "Enter a character"
     elif converter.state == "dead": # If last input is not in a final state
-            result = "Input not available in Baybayin"
+        result = "Input not available in Baybayin"
     
     return jsonify({'result': result})
 
