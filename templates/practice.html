@@ -50,13 +50,29 @@
                 <li><a href="{{ url_for('about') }}">About</a></li>
             </ul>
         </nav>
-        <div id="canvasContainer">
-            <canvas id="topCanvas"></canvas>
-            <hr id="breaklines">
-            <canvas id="centerCanvas"></canvas>
-            <hr id="breaklines">
-            <canvas id="bottomCanvas"></canvas>
-        </div>
+        <main>
+            <div id="canvasContainer">
+                <canvas id="topCanvas"></canvas>
+                <hr id="breaklines">
+                <canvas id="centerCanvas"></canvas>
+                <hr id="breaklines">
+                <canvas id="bottomCanvas"></canvas>
+            </div>
+            <div id="canvasOutput">
+                <h1>Let's Practice</h1>
+                <div id="text-cont">
+                    <h2>Output:</h3>
+                    <div id="output-text-container">
+                        <h3><h3>
+                    </div>
+                <div>
+                <h2>Accuracy: <span>92%</span></h2>
+                <div id="buttons">
+                    <button class="toggle-keyboard-button">Enter</button>
+                    <button class="toggle-keyboard-button">Clear</button>
+                </div>
+            </div>
+        </main>
         <script src="{{ url_for('static', filename='script/languages.js') }}"></script>
         <script src="{{ url_for('static', filename='script/script.js') }}"></script>
         <script src="{{ url_for('static', filename='script/practice.js') }}"></script>
