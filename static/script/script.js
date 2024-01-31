@@ -39,19 +39,24 @@ buttons.forEach(btn => {
         const baybayinCharContent = baybayinCharElement ? baybayinCharElement.textContent : '';
         const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
 
-        // If the base character is not empty, remove the last character
-        if (selectedBaseChar) {
-            textarea.value = textarea.value.slice(0, -1);
+        // If the clicked character is a vowel, just display it
+        if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent)) {
+            textarea.value += baybayinCharContent;
+        } else {
+            // If the base character is not empty, remove the last character
+            if (selectedBaseChar) {
+                textarea.value = textarea.value.slice(0, -1);
+            }
+
+            // Form a new character
+            const newChar = baybayinCharContent + baybayinKudlitContent;
+
+            // Append the new character to the textarea
+            textarea.value += newChar;
+
+            // Update the selected base character
+            selectedBaseChar = baybayinCharContent;
         }
-
-        // Form a new character
-        const newChar = baybayinCharContent + baybayinKudlitContent;
-
-        // Append the new character to the textarea
-        textarea.value += newChar;
-
-        // Update the selected base character
-        selectedBaseChar = baybayinCharContent;
 
         console.log(textarea.value); // To see the result in the console log on the website
     });
