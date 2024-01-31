@@ -1,4 +1,4 @@
-syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
+syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "NGA","PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
 vowel = "AEIOU "
 kudlit = "aeiou"
 
@@ -14,18 +14,24 @@ class BaybayinToLatin:
     def process_input(self, input_str, inSyllabic):
         i = 0
         while i < len(input_str):
-            if i+1 < len(input_str):
-                syllable = input_str[i:i+2]
-                if syllable in inSyllabic:
-                    self.transition(syllable)
-                    i += 2
+            if i + 1 < len(input_str):
+                trigram = input_str[i:i + 3]
+                if trigram in inSyllabic:
+                    self.transition(trigram)
+                    i += 3
                 else:
-                    self.transition(input_str[i])
-                    i += 1
+                    bigram = input_str[i:i + 2]
+                    if bigram in inSyllabic:
+                        self.transition(bigram)
+                        i += 2
+                    else:
+                        self.transition(input_str[i])
+                        i += 1
             else:
                 self.transition(input_str[i])
                 i += 1
-        return ''.join(self.stack)   # Convert the stack content to a string and return as the result
+        return ''.join(self.stack)
+  # Convert the stack content to a string and return as the result
 
     # Adding items into the stack
     def push(self, item):
@@ -61,11 +67,16 @@ class BaybayinToLatin:
                     self.transition_function(string)      
                 else:
                     self.stack = ["Invalid Output"] 
-            elif len(string) == 2:
+            else:
                 if string in syllabic:
-                    self.state = "syllable"
-                    self.consonant = string[-2]
-                    self.transition_function(string)   
+                    if len(string) == 3:
+                        self.state = "syllable"
+                        self.consonant = string[:2]
+                        self.transition_function(string)                          
+                    else:
+                        self.state = "syllable"
+                        self.consonant = string[:1]
+                        self.transition_function(string)   
                 else:
                     self.stack = ["Invalid Output"] 
 
@@ -83,11 +94,16 @@ class BaybayinToLatin:
                     self.transition_function(string)      
                 else:
                     self.stack = ["Invalid Output"] 
-            elif len(string) == 2:
+            else:
                 if string in syllabic:
-                    self.state = "syllable"
-                    self.consonant = string[-2]
-                    self.transition_function(string)   
+                    if len(string) == 3:
+                        self.state = "syllable"
+                        self.consonant = string[:2]
+                        self.transition_function(string)                          
+                    else:
+                        self.state = "syllable"
+                        self.consonant = string[:1]
+                        self.transition_function(string)   
                 else:
                     self.stack = ["Invalid Output"] 
 
@@ -105,11 +121,16 @@ class BaybayinToLatin:
                     self.transition_function(string)      
                 else:
                     self.stack = ["Invalid Output"] 
-            elif len(string) == 2:
+            else:
                 if string in syllabic:
-                    self.state = "syllable"
-                    self.consonant = string[-2]
-                    self.transition_function(string)   
+                    if len(string) == 3:
+                        self.state = "syllable"
+                        self.consonant = string[:2]
+                        self.transition_function(string)                          
+                    else:
+                        self.state = "syllable"
+                        self.consonant = string[:1]
+                        self.transition_function(string)   
                 else:
                     self.stack = ["Invalid Output"] 
 
@@ -127,11 +148,16 @@ class BaybayinToLatin:
                     self.transition_function(string)      
                 else:
                     self.stack = ["Invalid Output"] 
-            elif len(string) == 2:
+            else:
                 if string in syllabic:
-                    self.state = "syllable"
-                    self.consonant = string[-2]
-                    self.transition_function(string)   
+                    if len(string) == 3:
+                        self.state = "syllable"
+                        self.consonant = string[:2]
+                        self.transition_function(string)                          
+                    else:
+                        self.state = "syllable"
+                        self.consonant = string[:1]
+                        self.transition_function(string)   
                 else:
                     self.stack = ["Invalid Output"] 
 
@@ -149,13 +175,18 @@ class BaybayinToLatin:
                     self.transition_function(string)      
                 else:
                     self.stack = ["Invalid Output"] 
-            elif len(string) == 2:
+            else:
                 if string in syllabic:
-                    self.state = "syllable"
-                    self.consonant = string[-2]
-                    self.transition_function(string)   
+                    if len(string) == 3:
+                        self.state = "syllable"
+                        self.consonant = string[:2]
+                        self.transition_function(string)                          
+                    else:
+                        self.state = "syllable"
+                        self.consonant = string[:1]
+                        self.transition_function(string)   
                 else:
-                    self.stack = ["Invalid Output"] 
+                    self.stack = ["Invalid Output"]  
 
         # Dead State
         elif self.state == "dead":
@@ -171,10 +202,16 @@ class BaybayinToLatin:
                     self.transition_function(string)      
                 else:
                     self.stack = ["Invalid Output"] 
-            elif len(string) == 2:
+            else:
                 if string in syllabic:
-                    self.state = "dead"
-                    self.transition_function(string)   
+                    if len(string) == 3:
+                        self.state = "syllable"
+                        self.consonant = string[:2]
+                        self.transition_function(string)                          
+                    else:
+                        self.state = "syllable"
+                        self.consonant = string[:1]
+                        self.transition_function(string)   
                 else:
                     self.stack = ["Invalid Output"] 
                 
