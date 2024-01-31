@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, send_file
 from io import BytesIO
 import test
+import baybayin
 from PIL import Image
 import base64
 import os
@@ -24,7 +25,28 @@ def translit_from_latin_to_baybayin():
         result = "Input not available in Baybayin"
     elif converter.state == "final_consonant": # If last input is a final consonant
         result = result[:-1]
+    elif converter.state == "final_digraph": # If last input is a final digraph
+            result = result[:-2]
 
+    return jsonify({'result': result})
+
+syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
+
+@app.route('/api/transliterate/baybayin-to-latin', methods=['POST'])
+def translit_from_baybayin_to_latin():
+    data = request.get_json()
+
+
+    if 'input' not in data:
+        return jsonify({'error': 'Invalid request'}), 400
+    input_str = data['input']
+
+    converter = baybayin.BaybayinToLatin()
+    result = converter.process_input(input_str, syllabic)
+    if converter.state == "start": # If input is only in a start state
+        result = "Enter a character"
+    elif converter.state == "dead": # If last input is not in a final state
+        result = "Input not available in Baybayin"
     return jsonify({'result': result})
 
 
