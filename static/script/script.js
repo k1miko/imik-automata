@@ -18,15 +18,44 @@ const dropdowns = document.querySelectorAll('.dropdown-container'),
 /* empty array, necessary for getting the chars typed in the text area, wherein it splits each character typed into individual characters. Ex., chars = ['A', 'BA'] assuming they r the baybayin script*/
 let chars = []
 
+let selectedBaseChar = '';
+
 /* click event for da script buttons */
+// buttons.forEach(btn => {
+//     btn.addEventListener('click', () => {
+//         const baybayinCharContent = btn.querySelector('.baybayin-char').textContent;
+//         textarea.value += baybayinCharContent
+//         chars = textarea.value.split('')
+//         console.log(chars); // to see if it works go to the console log in the website
+//     })
+// })
+
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-        const baybayinCharContent = btn.querySelector('.baybayin-char').textContent;
-        textarea.value += baybayinCharContent
-        chars = textarea.value.split('')
-        console.log(chars); // to see if it works go to the console log in the website
-    })
-})
+        const baybayinCharElement = btn.querySelector('.baybayin-char');
+        const baybayinKudlitElement = btn.querySelector('.baybayin-kudlit');
+
+        // Check if the elements are present before accessing textContent
+        const baybayinCharContent = baybayinCharElement ? baybayinCharElement.textContent : '';
+        const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
+
+        // If the base character is not empty, remove the last character
+        if (selectedBaseChar) {
+            textarea.value = textarea.value.slice(0, -1);
+        }
+
+        // Form a new character
+        const newChar = baybayinCharContent + baybayinKudlitContent;
+
+        // Append the new character to the textarea
+        textarea.value += newChar;
+
+        // Update the selected base character
+        selectedBaseChar = baybayinCharContent;
+
+        console.log(textarea.value); // To see the result in the console log on the website
+    });
+});
 
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
@@ -97,17 +126,17 @@ document.addEventListener("DOMContentLoaded", function() {
         inputText.value = "";
         outputText.value = "";
 
-        // if (inputLangDropdown.querySelector(".selected-script").dataset.value == "byn") {
-        //     inputText.style.fontFamily = "Baybayin";
-        //     inputText.style.fontSize = "40px";
-        //     outputText.style.fontFamily = "";
-        //     outputText.style.fontSize = "";
-        // }else{
-        //     outputText.style.fontFamily = "Baybayin";
-        //     outputText.style.fontSize = "40px";
-        //     inputText.style.fontFamily = "";
-        //     inputText.style.fontSize = "";
-        // }
+        if (inputLangDropdown.querySelector(".selected-script").dataset.value == "byn") {
+            inputText.style.fontFamily = "Baybayin";
+            inputText.style.fontSize = "40px";
+            outputText.style.fontFamily = "";
+            outputText.style.fontSize = "";
+        }else{
+            outputText.style.fontFamily = "Baybayin";
+            outputText.style.fontSize = "40px";
+            inputText.style.fontFamily = "";
+            inputText.style.fontSize = "";
+        }
     }
 
     swapButton.addEventListener("click", () => {
@@ -140,17 +169,17 @@ document.addEventListener("DOMContentLoaded", function() {
             inputText.value = "";
             outputText.value = "";
 
-            // if (item.dataset.value === "byn") {
-            //     inputText.style.fontFamily = "Baybayin";
-            //     inputText.style.fontSize = "40px";
-            //     outputText.style.fontFamily = "";
-            //     outputText.style.fontSize = "";
-            // }else{
-            //     outputText.style.fontFamily = "Baybayin";
-            //     outputText.style.fontSize = "40px";
-            //     inputText.style.fontFamily = "";
-            //     inputText.style.fontSize = "";
-            // }
+            if (item.dataset.value === "byn") {
+                inputText.style.fontFamily = "Baybayin";
+                inputText.style.fontSize = "40px";
+                outputText.style.fontFamily = "";
+                outputText.style.fontSize = "";
+            }else{
+                outputText.style.fontFamily = "Baybayin";
+                outputText.style.fontSize = "40px";
+                inputText.style.fontFamily = "";
+                inputText.style.fontSize = "";
+            }
         });
     });
 
@@ -181,17 +210,17 @@ document.addEventListener("DOMContentLoaded", function() {
             outputText.value = "";
 
             //Make the text field font family changes to baybayin or latin
-            // if (item.dataset.value === "byn") {
-            //     outputText.style.fontFamily = "Baybayin";
-            //     outputText.style.fontSize = "40px";
-            //     inputText.style.fontFamily = "";
-            //     inputText.style.fontSize = "";
-            // }else{
-            //     inputText.style.fontFamily = "Baybayin";
-            //     inputText.style.fontSize = "40px";
-            //     outputText.style.fontFamily = "";
-            //     outputText.style.fontSize = "";
-            // }
+            if (item.dataset.value === "byn") {
+                outputText.style.fontFamily = "Baybayin";
+                outputText.style.fontSize = "40px";
+                inputText.style.fontFamily = "";
+                inputText.style.fontSize = "";
+            }else{
+                inputText.style.fontFamily = "Baybayin";
+                inputText.style.fontSize = "40px";
+                outputText.style.fontFamily = "";
+                outputText.style.fontSize = "";
+            }
         });
     });
 });
@@ -260,15 +289,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 outputText.value = data.result;
 
                 // Handle styling based on the result
-                // if (outputText.value === "Input not available in Baybayin" && isBaybayinToLatin) {
-                //     outputText.style.fontFamily = "Baybayin";
-                //     outputText.style.fontSize = "40px";
-                //     inputText.style.fontFamily = "";
-                //     inputText.style.fontSize = "";
-                // } else {
-                //     outputText.style.color = "";
-                //     outputText.style.fontFamily = isLatinToBaybayin ? "Baybayin" : "";
-                // }
+                if (outputText.value === "Input not available in Baybayin" && isBaybayinToLatin) {
+                    outputText.style.fontFamily = "Baybayin";
+                    outputText.style.fontSize = "40px";
+                    inputText.style.fontFamily = "";
+                    inputText.style.fontSize = "";
+                } else {
+                    outputText.style.color = "";
+                    outputText.style.fontFamily = isLatinToBaybayin ? "Baybayin" : "";
+                }
             })
             .catch(error => console.error('Error:', error));
         } else {
