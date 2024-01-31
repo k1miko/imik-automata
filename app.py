@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, send_file
 from io import BytesIO
 import test
 import baybayin
+from PIL import Image
 import base64
 import os
 
@@ -27,6 +28,7 @@ def translit_from_latin_to_baybayin():
         result = result[:-1]
     elif converter.state == "final_digraph": # If last input is a final digraph
             result = result[:-2]
+
     return jsonify({'result': result})
 
 syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
