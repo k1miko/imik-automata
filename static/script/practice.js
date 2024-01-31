@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Draw dividing line below the canvas
         ctx.beginPath();
         ctx.moveTo(0, canvas.height);  // Move to the bottom-left corner of the canvas
-        ctx.lineTo(canvas.width, canvas.height);  // Draw a horizontal line below the canvas
         ctx.strokeStyle = lineColor || 'rgba(0, 0, 0, 0.7)';
         ctx.lineWidth = 2;
         ctx.stroke();
@@ -57,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    initializeCanvas(topCanvas, topCtx, '#e74c3c'); // Red line for top division
-    initializeCanvas(centerCanvas, centerCtx, '#3498db'); // Blue line for center division
-    initializeCanvas(bottomCanvas, bottomCtx, '#27ae60'); // Green line for bottom division
+    initializeCanvas(topCanvas, topCtx, '#000000'); // Red line for top division
+    initializeCanvas(centerCanvas, centerCtx, '#000000'); // Blue line for center division
+    initializeCanvas(bottomCanvas, bottomCtx, '#000000'); // Green line for bottom division
 });
