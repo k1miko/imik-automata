@@ -1,5 +1,10 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
+from io import BytesIO
 import test
+from PIL import Image
+import base64
+import os
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -30,6 +35,47 @@ def about():
 @app.route('/practice') 
 def practice():
     return render_template('practice.html')
+
+if not os.path.exists('img'):
+    os.makedirs('img')
+
+# Your existing routes...
+
+@app.route('/api/capture_canvas', methods=['POST'])
+def capture_canvas():
+    data = request.get_json()
+
+    if 'canvasId' not in data or 'dataURL' not in data:
+        return jsonify({'success': False, 'error': 'Invalid request'}), 400
+
+    canvas_id = data['canvasId']
+    data_url = data['dataURL']
+
+    # Assuming you have a function to convert base64 data URL to an image, modify accordingly
+    image = convert_data_url_to_image(data_url)
+
+    # Save the image to the 'img' directory
+    image.save(f'img/{canvas_id}_output.png')
+
+    # Print a message to the terminal
+    print(f'Image from {canvas_id} captured and saved successfully.')
+
+    # Return success response with the image URL
+    return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
+
+
+def convert_data_url_to_image(data_url):
+    # Remove the data URL prefix
+    data_url = data_url.split(',')[1]
+
+    # Decode base64 data
+    image_data = BytesIO(base64.b64decode(data_url))
+
+    # Use PIL to open the image stream
+    image = Image.open(image_data)
+
+    return image
+
 
 
 if __name__ == '__main__':
