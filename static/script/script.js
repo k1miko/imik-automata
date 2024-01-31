@@ -97,17 +97,17 @@ document.addEventListener("DOMContentLoaded", function() {
         inputText.value = "";
         outputText.value = "";
 
-        // if (inputLangDropdown.querySelector(".selected-script").dataset.value == "byn") {
-        //     inputText.style.fontFamily = "Baybayin";
-        //     inputText.style.fontSize = "40px";
-        //     outputText.style.fontFamily = "";
-        //     outputText.style.fontSize = "";
-        // }else{
-        //     outputText.style.fontFamily = "Baybayin";
-        //     outputText.style.fontSize = "40px";
-        //     inputText.style.fontFamily = "";
-        //     inputText.style.fontSize = "";
-        // }
+        if (inputLangDropdown.querySelector(".selected-script").dataset.value == "byn") {
+            inputText.style.fontFamily = "Baybayin";
+            inputText.style.fontSize = "40px";
+            outputText.style.fontFamily = "";
+            outputText.style.fontSize = "";
+        }else{
+            outputText.style.fontFamily = "Baybayin";
+            outputText.style.fontSize = "40px";
+            inputText.style.fontFamily = "";
+            inputText.style.fontSize = "";
+        }
     }
 
     swapButton.addEventListener("click", () => {
@@ -140,17 +140,17 @@ document.addEventListener("DOMContentLoaded", function() {
             inputText.value = "";
             outputText.value = "";
 
-            // if (item.dataset.value === "byn") {
-            //     inputText.style.fontFamily = "Baybayin";
-            //     inputText.style.fontSize = "40px";
-            //     outputText.style.fontFamily = "";
-            //     outputText.style.fontSize = "";
-            // }else{
-            //     outputText.style.fontFamily = "Baybayin";
-            //     outputText.style.fontSize = "40px";
-            //     inputText.style.fontFamily = "";
-            //     inputText.style.fontSize = "";
-            // }
+            if (item.dataset.value === "byn") {
+                inputText.style.fontFamily = "Baybayin";
+                inputText.style.fontSize = "40px";
+                outputText.style.fontFamily = "";
+                outputText.style.fontSize = "";
+            }else{
+                outputText.style.fontFamily = "Baybayin";
+                outputText.style.fontSize = "40px";
+                inputText.style.fontFamily = "";
+                inputText.style.fontSize = "";
+            }
         });
     });
 
@@ -181,17 +181,17 @@ document.addEventListener("DOMContentLoaded", function() {
             outputText.value = "";
 
             //Make the text field font family changes to baybayin or latin
-            // if (item.dataset.value === "byn") {
-            //     outputText.style.fontFamily = "Baybayin";
-            //     outputText.style.fontSize = "40px";
-            //     inputText.style.fontFamily = "";
-            //     inputText.style.fontSize = "";
-            // }else{
-            //     inputText.style.fontFamily = "Baybayin";
-            //     inputText.style.fontSize = "40px";
-            //     outputText.style.fontFamily = "";
-            //     outputText.style.fontSize = "";
-            // }
+            if (item.dataset.value === "byn") {
+                outputText.style.fontFamily = "Baybayin";
+                outputText.style.fontSize = "40px";
+                inputText.style.fontFamily = "";
+                inputText.style.fontSize = "";
+            }else{
+                inputText.style.fontFamily = "Baybayin";
+                inputText.style.fontSize = "40px";
+                outputText.style.fontFamily = "";
+                outputText.style.fontSize = "";
+            }
         });
     });
 });
@@ -260,15 +260,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 outputText.value = data.result;
 
                 // Handle styling based on the result
-                // if (outputText.value === "Input not available in Baybayin" && isBaybayinToLatin) {
-                //     outputText.style.fontFamily = "Baybayin";
-                //     outputText.style.fontSize = "40px";
-                //     inputText.style.fontFamily = "";
-                //     inputText.style.fontSize = "";
-                // } else {
-                //     outputText.style.color = "";
-                //     outputText.style.fontFamily = isLatinToBaybayin ? "Baybayin" : "";
-                // }
+                if (outputText.value === "Input not available in Baybayin" && isBaybayinToLatin) {
+                    outputText.style.fontFamily = "Baybayin";
+                    outputText.style.fontSize = "40px";
+                    inputText.style.fontFamily = "";
+                    inputText.style.fontSize = "";
+                } else {
+                    outputText.style.color = "";
+                    outputText.style.fontFamily = isLatinToBaybayin ? "Baybayin" : "";
+                }
             })
             .catch(error => console.error('Error:', error));
         } else {
