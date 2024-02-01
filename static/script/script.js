@@ -18,7 +18,19 @@ const dropdowns = document.querySelectorAll('.dropdown-container'),
 /* empty array, necessary for getting the chars typed in the text area, wherein it splits each character typed into individual characters. Ex., chars = ['A', 'BA'] assuming they r the baybayin script*/
 let chars = []
 
- let selectedBaseChar = '';
+let selectedBaseChar = '';
+let storedBaybayinChar = '';
+let storedBaybayinKudlit = '';
+
+
+ function getBaybayinCharFromInput(input) {
+    return input;
+}
+
+// Function to extract kudlit from the input
+function getBaybayinKudlitFromInput(input) {
+   return input.slice(-1);
+}
 
 /* click event for da script buttons */
 buttons.forEach(btn => {
@@ -45,11 +57,19 @@ buttons.forEach(btn => {
         // Update the selected base character
         selectedBaseChar = baybayinCharContent;
 
+        // Store the baybayin-char and baybayin-kudlit separately
+        storedBaybayinChar = baybayinCharContent;
+        storedBaybayinKudlit = baybayinKudlitContent;
+
         // Pass the values separately to the backend without modifying them
+        const baybayinChar = getBaybayinCharFromInput(storedBaybayinChar);
+        const baybayinKudlit = getBaybayinCharFromInput(storedBaybayinKudlit);
+        const baybayinCharToGet = baybayinChar + baybayinKudlit;
         console.log(textarea.value);
-        console.log("Pass to backend: " + baybayinCharContent + " and " + baybayinKudlitContent);
+        console.log("Pass to backend: " + baybayinCharToGet);
     });
 });
+
 
 
 
@@ -272,18 +292,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (isLatinToBaybayin || isBaybayinToLatin) {
             const apiEndpoint = isLatinToBaybayin ? '/api/transliterate/latin-to-baybayin' : '/api/transliterate/baybayin-to-latin';
-
+        
+            let requestData;
+            if (isLatinToBaybayin) {
+                // For Latin to Baybayin, send the entire input from the textarea
+                requestData = { input: inputText.value };
+            } else if (isBaybayinToLatin) {
+                // For Baybayin to Latin, send baybayin-character and kudlit separately
+                const baybayinChar = getBaybayinCharFromInput(inputText.value);
+                const baybayinKudlit = getBaybayinKudlitFromInput(inputText.value);
+                requestData = { charInput: baybayinChar, kudlitInput: baybayinKudlit };
+            }
+        
             fetch(apiEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ input: inputText.value })
+                body: JSON.stringify(requestData)
             })
             .then(response => response.json())
             .then(data => {
                 outputText.value = data.result;
-
+        
                 // Handle styling based on the result
                 if (outputText.value === "Input not available in Baybayin" && isBaybayinToLatin) {
                     outputText.style.fontFamily = "Baybayin";
@@ -299,6 +330,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             console.error('Invalid conversion selected');
         }
+        
     });
 });
 

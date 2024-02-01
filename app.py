@@ -37,16 +37,19 @@ syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "N
 def translit_from_baybayin_to_latin():
     data = request.get_json()
 
-    if 'input' not in data:
+    if 'charInput' not in data or 'kudlitInput' not in data:
         return jsonify({'error': 'Invalid request'}), 400
-    input_str = data['input']
+    
+    char_input = data['charInput']
+    kudlit_input = data['kudlitInput']
 
+    input_str = char_input + kudlit_input
     # Replace '||' with a space
     input_str = input_str.replace('||', ' ')
 
     converter = baybayin.BaybayinToLatin()
     result = converter.process_input(input_str, syllabic)
-    if converter.state == "start": # If input is only in a start state
+    if converter.state == "": # If input is only in a start state
         result = "Enter a character"
     elif converter.state == "dead": # If last input is not in a final state
         result = "Input not available in Baybayin"
