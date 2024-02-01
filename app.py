@@ -5,6 +5,7 @@ import baybayin
 from PIL import Image
 import base64
 import os
+import centerCanvas, bottomCanvas, topCanvas
 
 app = Flask(__name__)
 
@@ -70,9 +71,7 @@ def practice():
 if not os.path.exists('img'):
     os.makedirs('img')
 
-
-# Your existing routes...
-
+image_counter = 0  # Initialize image counter
 
 # @app.route('/api/capture_canvas', methods=['POST'])
 # def capture_canvas():
@@ -97,11 +96,9 @@ if not os.path.exists('img'):
 #     return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
 
 # Define a global counter to keep track of the image files
-image_counter = 0
 
 @app.route('/api/capture_canvas', methods=['POST'])
 def capture_canvas():
-    global image_counter
 
     data = request.get_json()
 
@@ -114,15 +111,26 @@ def capture_canvas():
     # Assuming you have a function to convert base64 data URL to an image, modify accordingly
     image = convert_data_url_to_image(data_url)
 
-    # Save the image to the 'img' directory with an incrementing file name
-    image_filename = f'img/{canvas_id}_{image_counter}_output.png'
-    image.save(image_filename)
+    # Remove the alpha channel (transparency) if present
+    image = remove_alpha_channel(image)
 
-    # Print a message to the terminal
-    print(f'Image from {canvas_id} captured and saved as {image_filename}.')
+    # Resize the image to 28x28
+    resized_image = resize_image(image, (28, 28))
 
-    # Increment the image counter
-    image_counter += 1
+    # Save the resized image to the 'img' directory with an incrementing file name
+    image_filename = f'img/{canvas_id}_output.jpg'
+    resized_image.save(image_filename)
+
+    
+    if(canvas_id == "centerCanvas"):
+        centerResult = centerCanvas.defineCenter(f'img/centerCanvas_output.jpg')
+        print(f'Center Result: {centerResult}')
+    if(canvas_id == "topCanvas"):
+        topResult = topCanvas.defineCenter(f'img/topCanvas_output.jpg')
+        print(f'Top Result: {topResult}')
+    if(canvas_id == "bottomCanvas"):
+        bottomResult = bottomCanvas.defineCenter(f'img/bottomCanvas_output.jpg')
+        print(f'Bottom Result: {bottomResult}')
 
     # Return success response with the image URL
     return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
@@ -139,6 +147,17 @@ def convert_data_url_to_image(data_url):
     image = Image.open(image_data)
 
     return image
+
+def remove_alpha_channel(image):
+    # Convert the image to RGB mode (removing alpha channel)
+    return image.convert('RGB')
+
+def resize_image(image, size):
+    # Resize the image
+    resized_image = image.resize(size)
+
+    return resized_image
+
 
 if __name__ == '__main__':
     app.run(debug=True)
