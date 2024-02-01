@@ -37,10 +37,12 @@ syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "N
 def translit_from_baybayin_to_latin():
     data = request.get_json()
 
-
     if 'input' not in data:
         return jsonify({'error': 'Invalid request'}), 400
     input_str = data['input']
+
+    # Replace '||' with a space
+    input_str = input_str.replace('||', ' ')
 
     converter = baybayin.BaybayinToLatin()
     result = converter.process_input(input_str, syllabic)

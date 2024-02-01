@@ -53,8 +53,6 @@ buttons.forEach(btn => {
 
 
 
-
-
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
     chars.pop() // if we click the delete button, the last character will be deleted
@@ -76,8 +74,7 @@ delete_button.addEventListener('mouseup', () => {
 
 // click event for the space
 space_button.addEventListener('click', () => {
-    chars.push('||') // alows the space to be added at the end of the array
-    textarea.value = chars.join('')
+    textarea.value += '||';
 })
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -303,8 +300,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-
-
 
 function copyToClipboard() {
     const outputTextElement = document.getElementById('output-text');
