@@ -53,6 +53,7 @@ buttons.forEach(btn => {
 
 
 
+
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
     chars.pop() // if we click the delete button, the last character will be deleted
