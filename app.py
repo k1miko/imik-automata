@@ -41,6 +41,9 @@ def translit_from_baybayin_to_latin():
         return jsonify({'error': 'Invalid request'}), 400
     input_str = data['input']
 
+    # Replace '||' with a space
+    input_str = input_str.replace('||', ' ')
+
     converter = baybayin.BaybayinToLatin()
     result = converter.process_input(input_str, syllabic)
     if converter.state == "start": # If input is only in a start state

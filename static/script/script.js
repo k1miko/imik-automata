@@ -21,6 +21,7 @@ let chars = []
  let selectedBaseChar = '';
 
 /* click event for da script buttons */
+<<<<<<< HEAD
 // buttons.forEach(btn => {
 //     btn.addEventListener('click', () => {
 //         const baybayinCharContent = btn.querySelector('.baybayin-char').textContent;
@@ -31,6 +32,8 @@ let chars = []
 // })
 
 
+=======
+>>>>>>> origin/nichole-other-changes
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
         const baybayinCharElement = btn.querySelector('.baybayin-char');
@@ -42,6 +45,7 @@ buttons.forEach(btn => {
 
         textarea.style.fontFamily = "Baybayin";
 
+<<<<<<< HEAD
         // If the clicked character is a vowel or there is no kudlit, just display it
         if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
             textarea.value += baybayinCharContent;
@@ -49,6 +53,12 @@ buttons.forEach(btn => {
             // If the base character is not empty and not a vowel, remove the last vowel
             if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
                 textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
+=======
+        // If the base character is not empty, remove the last character
+        if (selectedBaseChar) {
+            if (['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
+                textarea.value = textarea.value.slice(0, -1);
+>>>>>>> origin/nichole-other-changes
             }
         }
 
@@ -65,6 +75,11 @@ buttons.forEach(btn => {
 });
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/nichole-other-changes
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
     chars.pop() // if we click the delete button, the last character will be deleted
@@ -86,8 +101,7 @@ delete_button.addEventListener('mouseup', () => {
 
 // click event for the space
 space_button.addEventListener('click', () => {
-    chars.push('||') // alows the space to be added at the end of the array
-    textarea.value = chars.join('')
+    textarea.value += '||';
 })
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -313,8 +327,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-
-
 
 function copyToClipboard() {
     const outputTextElement = document.getElementById('output-text');
