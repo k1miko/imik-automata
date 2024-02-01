@@ -12,15 +12,20 @@ body {
     flex: 0.7;
     display: flex;
     margin: 20px;
+    padding: 0;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border: 10px solid #333;
-    width: 60%;
+    width: .25vh * 2.5;
+    background-color: #333;
 }
 
-canvas {
+#canvasContainer canvas {
     display: block;
+    border-left: 3px solid #333;
+    border-right: 3px solid #333;
+    background-color: white; /* Change this line */
 }
 
 #top, #center, #bottom {
