@@ -30,22 +30,18 @@ buttons.forEach(btn => {
         const baybayinCharContent = baybayinCharElement ? baybayinCharElement.textContent : '';
         const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
 
-        textarea.style.fontFamily = "Baybayin";
+        textarea.style.fontFamily = "YourCustomFont"; // Replace 'YourCustomFont' with the actual font name
 
         // If the clicked character is a vowel or there is no kudlit, just display it
         if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
+            // Append the combined content to the textarea
             textarea.value += baybayinCharContent;
         } else if (baybayinKudlitElement) {
             // If there's a kudlit element, handle syllabic + kudlit combination
-            const combinedContent = baybayinCharContent.slice(0, 1) + baybayinKudlitContent; // Remove the second letter
+            const combinedContent = baybayinCharContent + baybayinKudlitContent; // Include both characters
 
-            // If the base character is not empty, append the kudlit to it
-            if (selectedBaseChar) {
-                textarea.value += baybayinKudlitContent.toLowerCase();
-            } else {
-                // If the base character is empty, append the combined content
-                textarea.value += combinedContent;
-            }
+            // Append the combined content to the textarea
+            textarea.value += combinedContent;
 
             // Update the selected base character
             selectedBaseChar = baybayinCharContent;
@@ -64,13 +60,14 @@ buttons.forEach(btn => {
             // Update the selected base character
             selectedBaseChar = baybayinCharContent;
 
-            // Pass the original value to the backend without modifying it
-            console.log("Pass to backend: " + baybayinCharContent);
+            // Pass the original values to the backend without modifying them
+            console.log("Pass to backend: " + baybayinCharContent + baybayinKudlitContent);
         }
 
         console.log(textarea.value); // To see the result in the console log on the website
     });
 });
+
 
 
 
