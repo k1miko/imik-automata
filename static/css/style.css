@@ -15,6 +15,9 @@
 @font-face {
     font-family: Baybayin;
     src: url(BaybayinDoctrina.otf);
+
+    font-family: BaybayinKudlit;
+    src: url(BaybayinDoctrinaKudlit.ttf);
 }
 
 /* for the elements of HTML*/
