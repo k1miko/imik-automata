@@ -30,7 +30,7 @@ buttons.forEach(btn => {
         const baybayinCharContent = baybayinCharElement ? baybayinCharElement.textContent : '';
         const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
 
-        textarea.style.fontFamily = "YourCustomFont"; // Replace 'YourCustomFont' with the actual font name
+        textarea.style.fontFamily = "Baybayin"; // Replace 'YourCustomFont' with the actual font name
 
         // If the clicked character is a vowel or there is no kudlit, just display it
         if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
