@@ -30,6 +30,7 @@ let selectedBaseChar = '';
 //     })
 // })
 
+
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
         const baybayinCharElement = btn.querySelector('.baybayin-char');
@@ -40,7 +41,7 @@ buttons.forEach(btn => {
         const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
 
         // If the clicked character is a vowel, just display it
-        if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent)) {
+        if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
             textarea.value += baybayinCharContent;
         } else {
             // If the base character is not empty, remove the last character
@@ -61,6 +62,7 @@ buttons.forEach(btn => {
         console.log(textarea.value); // To see the result in the console log on the website
     });
 });
+
 
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
