@@ -237,8 +237,6 @@ function populateDropdown(dropdown, languages) {
     });
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
     // Set the placeholder text in its original case
     var placeholderText = "Enter Latin Script text here...";

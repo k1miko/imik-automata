@@ -52,7 +52,14 @@ document.addEventListener('DOMContentLoaded', function () {
             if (isDown) {
                 context.beginPath();
                 context.strokeStyle = '#000';
-                context.lineWidth = 25;
+                
+                // Adjust line width based on canvas type
+                if (canvas === topCanvas || canvas === bottomCanvas) {
+                    context.lineWidth = 10; // Set a thinner line width for top and bottom canvases
+                } else {
+                    context.lineWidth = 25; // Set the original line width for the center canvas
+                }
+                
                 context.lineJoin = 'round';
                 context.moveTo(x, y);
             } else {
@@ -60,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 context.stroke();
             }
         }
+    
     }
 
     initializeCanvas(topCanvas, topCtx, '#000000'); // Red line for top division
