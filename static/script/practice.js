@@ -9,44 +9,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Set canvas sizes
     const canvasHeight = window.innerHeight * 0.25;
-    const canvasWidth = 800;
-    topCanvas.width = centerCanvas.width = bottomCanvas.width = canvasWidth;
+    const canvasWidth = 900;
+    centerCanvas.width = topCanvas.width = bottomCanvas.width = canvasHeight * 1.5;
     topCanvas.height = canvasHeight * 0.50;
     centerCanvas.height = canvasHeight * 1.50;
     bottomCanvas.height = canvasHeight * 0.50;
 
     // Function to handle drawing on canvas
-    function initializeCanvas(canvas, ctx, lineColor) {
+    function initializeCanvas(canvas, ctx, lineColor, backgroundColor) {
+        // Set background color
+        ctx.fillStyle = backgroundColor || '#FFFFFF'; // Default is white
+    
+        // Fill the entire canvas with the background color
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
         // Draw dividing line below the canvas
         ctx.beginPath();
         ctx.moveTo(0, canvas.height);  // Move to the bottom-left corner of the canvas
         ctx.strokeStyle = lineColor || 'rgba(0, 0, 0, 0.7)';
         ctx.lineWidth = 2;
         ctx.stroke();
-
+    
         let isDrawing = false;
-
+    
         canvas.addEventListener('mousedown', (e) => {
             isDrawing = true;
             draw(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop, ctx, true);
         });
-
+    
         canvas.addEventListener('mousemove', (e) => {
             if (isDrawing) {
                 draw(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop, ctx, false);
             }
         });
-
+    
         canvas.addEventListener('mouseup', () => {
             isDrawing = false;
             ctx.beginPath();
         });
-
+    
         function draw(x, y, context, isDown) {
             if (isDown) {
                 context.beginPath();
                 context.strokeStyle = '#000';
-                context.lineWidth = 5;
+                
+                // Adjust line width based on canvas type
+                if (canvas === topCanvas || canvas === bottomCanvas) {
+                    context.lineWidth = 10; // Set a thinner line width for top and bottom canvases
+                } else {
+                    context.lineWidth = 25; // Set the original line width for the center canvas
+                }
+                
                 context.lineJoin = 'round';
                 context.moveTo(x, y);
             } else {
@@ -54,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 context.stroke();
             }
         }
+    
     }
 
     initializeCanvas(topCanvas, topCtx, '#000000'); // Red line for top division
@@ -104,6 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Additional logic to redraw any necessary elements or lines after clearing
         // You may reapply the initial canvas state or redraw any default elements
-        initializeCanvas(canvas, ctx, '#000000');
+        initializeCanvas(canvas, ctx, '#FFFFFF');
     }
 });
