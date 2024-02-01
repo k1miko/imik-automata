@@ -61,8 +61,10 @@ buttons.forEach(btn => {
         // Update the selected base character
         selectedBaseChar = baybayinCharContent;
       }
+      const modifiedValue = textarea.value.replace(/\|\|/g, ' ');
+
   
-      console.log(textarea.value); // To see the result in the console log on the website
+      console.log(modifiedValue); // To see the result in the console log on the website
     });
   });
 
@@ -89,7 +91,11 @@ delete_button.addEventListener('mouseup', () => {
 // click event for the space
 space_button.addEventListener('click', () => {
     textarea.value += '||';
-})
+    
+    // Log the textarea value with '||' replaced by a space
+    const modifiedValue = textarea.value.replace(/\|\|/g, ' ');
+    console.log(modifiedValue);
+});
 
 document.addEventListener("DOMContentLoaded", function() {
     const inputLangDropdown = document.getElementById("input-script");
@@ -296,6 +302,10 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 outputText.value = data.result;
+                // Console for output
+                let input_str = data.result;
+                input_str = input_str.replace(/\|\|/g, ' ').toUpperCase(); // Replace '||' with a space and convert to uppercase
+                console.log(input_str);
 
                 // Handle styling based on the result
                 if (outputText.value === "Input not available in Baybayin" && isBaybayinToLatin) {
