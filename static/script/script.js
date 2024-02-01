@@ -21,15 +21,6 @@ let chars = []
 let selectedBaseChar = '';
 
 /* click event for da script buttons */
-// buttons.forEach(btn => {
-//     btn.addEventListener('click', () => {
-//         const baybayinCharContent = btn.querySelector('.baybayin-char').textContent;
-//         textarea.value += baybayinCharContent
-//         chars = textarea.value.split('')
-//         console.log(chars); // to see if it works go to the console log in the website
-//     })
-// })
-
 
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -47,7 +38,7 @@ buttons.forEach(btn => {
             textarea.value += baybayinCharContent;
         } else {
             // If the base character is not empty and not a vowel, remove the last vowel
-            if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
+            if (selectedBaseChar && ['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
                 textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
             }
 
@@ -64,6 +55,7 @@ buttons.forEach(btn => {
         console.log(textarea.value); // To see the result in the console log on the website
     });
 });
+
 
 
 /* click event for the delete button */

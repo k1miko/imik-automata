@@ -3,7 +3,7 @@ vowel = "AEIOU "
 kudlit = "aeiou"
 
 
-class BaybayinToLatin:
+class BaybayinToLatin:  
     def __init__(self):
         self.stack = []
         self.state = "start"
@@ -216,7 +216,6 @@ class BaybayinToLatin:
                     self.stack = ["Invalid Output"] 
                 
 if __name__ == "__main__":
-    while True:
         pda = BaybayinToLatin()
         input_str = input("Enter a Baybayin string: ")
         result = pda.process_input(input_str, syllabic)
