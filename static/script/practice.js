@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (isDown) {
                 context.beginPath();
                 context.strokeStyle = '#000';
-                context.lineWidth = 23;
+                context.lineWidth = 25;
                 context.lineJoin = 'round';
                 context.moveTo(x, y);
             } else {
