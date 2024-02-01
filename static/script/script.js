@@ -18,9 +18,18 @@ const dropdowns = document.querySelectorAll('.dropdown-container'),
 /* empty array, necessary for getting the chars typed in the text area, wherein it splits each character typed into individual characters. Ex., chars = ['A', 'BA'] assuming they r the baybayin script*/
 let chars = []
 
-let selectedBaseChar = '';
+ let selectedBaseChar = '';
 
 /* click event for da script buttons */
+// buttons.forEach(btn => {
+//     btn.addEventListener('click', () => {
+//         const baybayinCharContent = btn.querySelector('.baybayin-char').textContent;
+//         textarea.value += baybayinCharContent
+//         chars = textarea.value.split('')
+//         console.log(chars); // to see if it works go to the console log in the website
+//     })
+// })
+
 
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -38,24 +47,22 @@ buttons.forEach(btn => {
             textarea.value += baybayinCharContent;
         } else {
             // If the base character is not empty and not a vowel, remove the last vowel
-            if (selectedBaseChar && ['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
+            if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
                 textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
             }
-
-            // Form a new character
-            const newChar = baybayinCharContent + baybayinKudlitContent;
-
-            // Append the new character to the textarea
-            textarea.value += newChar;
-
-            // Update the selected base character
-            selectedBaseChar = baybayinCharContent;
         }
 
-        console.log(textarea.value); // To see the result in the console log on the website
+        // Append the new character to the textarea
+        textarea.value += baybayinCharContent + baybayinKudlitContent;
+
+        // Update the selected base character
+        selectedBaseChar = baybayinCharContent;
+
+        // Pass the values separately to the backend without modifying them
+        console.log(textarea.value);
+        console.log("Pass to backend: " + baybayinCharContent + " and " + baybayinKudlitContent);
     });
 });
-
 
 
 /* click event for the delete button */
@@ -306,6 +313,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
 
 function copyToClipboard() {
     const outputTextElement = document.getElementById('output-text');

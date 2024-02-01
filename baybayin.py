@@ -1,6 +1,6 @@
 syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "NGA","PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
 vowel = "AEIOU "
-kudlit = "aeiou"
+kudlit = "eiou"
 
 
 class BaybayinToLatin:  
