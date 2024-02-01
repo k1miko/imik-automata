@@ -31,7 +31,7 @@ def translit_from_latin_to_baybayin():
 
     return jsonify({'result': result})
 
-syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
+syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "NGA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
 
 @app.route('/api/transliterate/baybayin-to-latin', methods=['POST'])
 def translit_from_baybayin_to_latin():
