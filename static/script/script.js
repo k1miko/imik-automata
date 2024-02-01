@@ -30,41 +30,24 @@ buttons.forEach(btn => {
         const baybayinCharContent = baybayinCharElement ? baybayinCharElement.textContent : '';
         const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
 
-        textarea.style.fontFamily = "Baybayin"; // Replace 'YourCustomFont' with the actual font name
+        textarea.style.fontFamily = "Baybayin";
 
-        // If the clicked character is a vowel or there is no kudlit, just display it
-        if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
-            // Append the combined content to the textarea
-            textarea.value += baybayinCharContent + baybayinKudlitContent;
-        } else if (baybayinKudlitElement) {
-            // If there's a kudlit element, handle syllabic + kudlit combination
-            const combinedContent = baybayinCharContent + baybayinKudlitContent; // Include both characters
-
-            // Append the combined content to the textarea
-            textarea.value += combinedContent;
-
-            // Update the selected base character
-            selectedBaseChar = combinedContent;
-        } else {
-            // If the base character is not empty and not a vowel, remove the last vowel
-            if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
-                textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
+        // If the base character is not empty, remove the last character
+        if (selectedBaseChar) {
+            if (['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
+                textarea.value = textarea.value.slice(0, -1);
             }
-
-            // Combine the base character and kudlit for display
-            const displayValue = baybayinCharContent + baybayinKudlitContent;
-
-            // Append the combined value to the textarea
-            textarea.value += displayValue;
-
-            // Update the selected base character
-            selectedBaseChar = displayValue;
-
-            // Pass the original values to the backend without modifying them
-            console.log("Pass to backend: " + baybayinCharContent + baybayinKudlitContent);
         }
 
-        console.log(textarea.value); // To see the result in the console log on the website
+        // Append the new character to the textarea
+        textarea.value += baybayinCharContent + baybayinKudlitContent;
+
+        // Update the selected base character
+        selectedBaseChar = baybayinCharContent;
+
+        // Pass the values separately to the backend without modifying them
+        console.log(textarea.value);
+        console.log("Pass to backend: " + baybayinCharContent + " and " + baybayinKudlitContent);
     });
 });
 
@@ -320,6 +303,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
 
 function copyToClipboard() {
     const outputTextElement = document.getElementById('output-text');
