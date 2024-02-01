@@ -39,7 +39,7 @@ buttons.forEach(btn => {
             // If there's a kudlit element, handle syllabic + kudlit combination
             const combinedContent = baybayinCharContent.slice(0, 1) + baybayinKudlitContent; // Remove the second letter
 
-            // If the base character is not empty, just append the kudlit to it
+            // If the base character is not empty, append the kudlit to it
             if (selectedBaseChar) {
                 textarea.value += baybayinKudlitContent.toLowerCase();
             } else {
@@ -64,13 +64,14 @@ buttons.forEach(btn => {
             // Update the selected base character
             selectedBaseChar = baybayinCharContent;
 
-            // Pass the combined value to the backend without modifying it
-            console.log("Pass to backend: " + textarea.value.replace(/[^A-Za-z]/g, ''));
+            // Pass the original value to the backend without modifying it
+            console.log("Pass to backend: " + baybayinCharContent);
         }
 
         console.log(textarea.value); // To see the result in the console log on the website
     });
 });
+
 
 
 
