@@ -18,19 +18,9 @@ const dropdowns = document.querySelectorAll('.dropdown-container'),
 /* empty array, necessary for getting the chars typed in the text area, wherein it splits each character typed into individual characters. Ex., chars = ['A', 'BA'] assuming they r the baybayin script*/
 let chars = []
 
-let selectedBaseChar = '';
+ let selectedBaseChar = '';
 
 /* click event for da script buttons */
-// buttons.forEach(btn => {
-//     btn.addEventListener('click', () => {
-//         const baybayinCharContent = btn.querySelector('.baybayin-char').textContent;
-//         textarea.value += baybayinCharContent
-//         chars = textarea.value.split('')
-//         console.log(chars); // to see if it works go to the console log in the website
-//     })
-// })
-
-
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
         const baybayinCharElement = btn.querySelector('.baybayin-char');
@@ -62,8 +52,11 @@ buttons.forEach(btn => {
         }
 
         console.log(textarea.value); // To see the result in the console log on the website
+        console.log("Pass to backend: " + textarea.value.replace(/[^A-Za-z]/g, '')); // To see what is passed to the backend
     });
 });
+
+
 
 
 /* click event for the delete button */
