@@ -5,6 +5,7 @@ import baybayin
 from PIL import Image
 import base64
 import os
+import centerCanvas, bottomCanvas, topCanvas
 
 app = Flask(__name__)
 
@@ -88,11 +89,9 @@ image_counter = 0  # Initialize image counter
 #     return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
 
 # Define a global counter to keep track of the image files
-image_counter = 0
 
 @app.route('/api/capture_canvas', methods=['POST'])
 def capture_canvas():
-    global image_counter
 
     data = request.get_json()
 
@@ -112,14 +111,19 @@ def capture_canvas():
     resized_image = resize_image(image, (28, 28))
 
     # Save the resized image to the 'img' directory with an incrementing file name
-    image_filename = f'img/{canvas_id}_{image_counter}_output.jpg'
+    image_filename = f'img/{canvas_id}_output.jpg'
     resized_image.save(image_filename)
 
-    # Print a message to the terminal
-    print(f'Image from {canvas_id} captured, resized, and saved as {image_filename}.')
-
-    # Increment the image counter
-    image_counter += 1
+    
+    if(canvas_id == "centerCanvas"):
+        centerResult = centerCanvas.defineCenter(f'img/centerCanvas_output.jpg')
+        print(f'Center Result: {centerResult}')
+    if(canvas_id == "topCanvas"):
+        topResult = topCanvas.defineCenter(f'img/topCanvas_output.jpg')
+        print(f'Top Result: {topResult}')
+    if(canvas_id == "bottomCanvas"):
+        bottomResult = bottomCanvas.defineCenter(f'img/bottomCanvas_output.jpg')
+        print(f'Bottom Result: {bottomResult}')
 
     # Return success response with the image URL
     return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
