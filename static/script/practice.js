@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (canvas === topCanvas || canvas === bottomCanvas) {
                     context.lineWidth = 10; // Set a thinner line width for top and bottom canvases
                 } else {
-                    context.lineWidth = 25; // Set the original line width for the center canvas
+                    context.lineWidth = 20; // Set the original line width for the center canvas
                 }
                 
                 context.lineJoin = 'round';
