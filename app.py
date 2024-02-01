@@ -63,8 +63,12 @@ def practice():
 if not os.path.exists('img'):
     os.makedirs('img')
 
+<<<<<<< HEAD
 
 # Your existing routes...
+=======
+image_counter = 0  # Initialize image counter
+>>>>>>> 5a24e56b482da87db3440489e42944c54dd31561
 
 
 # @app.route('/api/capture_canvas', methods=['POST'])
@@ -107,12 +111,27 @@ def capture_canvas():
     # Assuming you have a function to convert base64 data URL to an image, modify accordingly
     image = convert_data_url_to_image(data_url)
 
+<<<<<<< HEAD
     # Save the image to the 'img' directory with an incrementing file name
     image_filename = f'img/{canvas_id}_{image_counter}_output.png'
     image.save(image_filename)
 
     # Print a message to the terminal
     print(f'Image from {canvas_id} captured and saved as {image_filename}.')
+=======
+    # Remove the alpha channel (transparency) if present
+    image = remove_alpha_channel(image)
+
+    # Resize the image to 28x28
+    resized_image = resize_image(image, (28, 28))
+
+    # Save the resized image to the 'img' directory with an incrementing file name
+    image_filename = f'img/{canvas_id}_{image_counter}_output.jpg'
+    resized_image.save(image_filename)
+
+    # Print a message to the terminal
+    print(f'Image from {canvas_id} captured, resized, and saved as {image_filename}.')
+>>>>>>> 5a24e56b482da87db3440489e42944c54dd31561
 
     # Increment the image counter
     image_counter += 1
@@ -133,5 +152,19 @@ def convert_data_url_to_image(data_url):
 
     return image
 
+<<<<<<< HEAD
+=======
+def remove_alpha_channel(image):
+    # Convert the image to RGB mode (removing alpha channel)
+    return image.convert('RGB')
+
+def resize_image(image, size):
+    # Resize the image
+    resized_image = image.resize(size)
+
+    return resized_image
+
+
+>>>>>>> 5a24e56b482da87db3440489e42944c54dd31561
 if __name__ == '__main__':
     app.run(debug=True)
