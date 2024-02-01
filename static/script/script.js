@@ -21,38 +21,52 @@ let chars = []
  let selectedBaseChar = '';
 
 /* click event for da script buttons */
-// If the clicked character is a vowel or there is no kudlit, just display it
-if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
-    // Append the combined content to the textarea
-    textarea.value += baybayinCharContent + baybayinKudlitContent;
-} else if (baybayinKudlitElement) {
-    // If there's a kudlit element, handle syllabic + kudlit combination
-    const combinedContent = baybayinCharContent + baybayinKudlitContent; // Include both characters
+buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const baybayinCharElement = btn.querySelector('.baybayin-char');
+        const baybayinKudlitElement = btn.querySelector('.baybayin-kudlit');
 
-    // Append the combined content to the textarea
-    textarea.value += combinedContent;
+        // Check if the elements are present before accessing textContent
+        const baybayinCharContent = baybayinCharElement ? baybayinCharElement.textContent : '';
+        const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
 
-    // Update the selected base character
-    selectedBaseChar = combinedContent;
-} else {
-    // If the base character is not empty and not a vowel, remove the last vowel
-    if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
-        textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
-    }
+        textarea.style.fontFamily = "YourCustomFont"; // Replace 'YourCustomFont' with the actual font name
 
-    // Combine the base character and kudlit for display
-    const displayValue = baybayinCharContent + baybayinKudlitContent;
+        // If the clicked character is a vowel or there is no kudlit, just display it
+        if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
+            // Append the combined content to the textarea
+            textarea.value += baybayinCharContent + baybayinKudlitContent;
+        } else if (baybayinKudlitElement) {
+            // If there's a kudlit element, handle syllabic + kudlit combination
+            const combinedContent = baybayinCharContent + baybayinKudlitContent; // Include both characters
 
-    // Append the combined value to the textarea
-    textarea.value += displayValue;
+            // Append the combined content to the textarea
+            textarea.value += combinedContent;
 
-    // Update the selected base character
-    selectedBaseChar = displayValue;
+            // Update the selected base character
+            selectedBaseChar = combinedContent;
+        } else {
+            // If the base character is not empty and not a vowel, remove the last vowel
+            if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
+                textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
+            }
 
-    // Pass the original values to the backend without modifying them
-    console.log("Pass to backend: " + baybayinCharContent + baybayinKudlitContent);
-}
+            // Combine the base character and kudlit for display
+            const displayValue = baybayinCharContent + baybayinKudlitContent;
 
+            // Append the combined value to the textarea
+            textarea.value += displayValue;
+
+            // Update the selected base character
+            selectedBaseChar = displayValue;
+
+            // Pass the original values to the backend without modifying them
+            console.log("Pass to backend: " + baybayinCharContent + baybayinKudlitContent);
+        }
+
+        console.log(textarea.value); // To see the result in the console log on the website
+    });
+});
 
 
 
