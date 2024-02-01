@@ -35,6 +35,20 @@ buttons.forEach(btn => {
         // If the clicked character is a vowel or there is no kudlit, just display it
         if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
             textarea.value += baybayinCharContent;
+        } else if (baybayinKudlitElement) {
+            // If there's a kudlit element, handle syllabic + kudlit combination
+            const combinedContent = baybayinCharContent.slice(0, 1) + baybayinKudlitContent; // Remove the second letter
+
+            // If the base character is not empty, just append the kudlit to it
+            if (selectedBaseChar) {
+                textarea.value += baybayinKudlitContent.toLowerCase();
+            } else {
+                // If the base character is empty, append the combined content
+                textarea.value += combinedContent;
+            }
+
+            // Update the selected base character
+            selectedBaseChar = baybayinCharContent;
         } else {
             // If the base character is not empty and not a vowel, remove the last vowel
             if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
@@ -57,9 +71,6 @@ buttons.forEach(btn => {
         console.log(textarea.value); // To see the result in the console log on the website
     });
 });
-
-
-
 
 
 
