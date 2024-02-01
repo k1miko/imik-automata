@@ -40,13 +40,15 @@ buttons.forEach(btn => {
         const baybayinCharContent = baybayinCharElement ? baybayinCharElement.textContent : '';
         const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
 
-        // If the clicked character is a vowel, just display it
+        textarea.style.fontFamily = "Baybayin";
+
+        // If the clicked character is a vowel or there is no kudlit, just display it
         if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
             textarea.value += baybayinCharContent;
         } else {
-            // If the base character is not empty, remove the last character
-            if (selectedBaseChar) {
-                textarea.value = textarea.value.slice(0, -1);
+            // If the base character is not empty and not a vowel, remove the last vowel
+            if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
+                textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
             }
 
             // Form a new character
@@ -313,12 +315,26 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function copyToClipboard(){
-    const element = document.querySelector('#output-text');
-    element.select();
-    element.setSelectionRange(0, 99999);
+function copyToClipboard() {
+    const outputTextElement = document.getElementById('output-text');
+
+    // Create a Range object to select the text content and style
+    const range = document.createRange();
+    range.selectNode(outputTextElement);
+
+    // Clear any existing selection
+    window.getSelection().removeAllRanges();
+
+    // Add the new Range to the selection
+    window.getSelection().addRange(range);
+
+    // Copy the selection to the clipboard
     document.execCommand('copy');
+
+    // Remove the Range from the selection
+    window.getSelection().removeAllRanges();
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     var rulesMenu = document.querySelector('.rules-menu');
