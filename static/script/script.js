@@ -19,18 +19,8 @@ const dropdowns = document.querySelectorAll('.dropdown-container'),
 let chars = []
 
 let selectedBaseChar = '';
-let storedBaybayinChar = '';
-let storedBaybayinKudlit = '';
-
-
- function getBaybayinCharFromInput(input) {
-    return input;
-}
-
-// Function to extract kudlit from the input
-function getBaybayinKudlitFromInput(input) {
-   return input.slice(-1);
-}
+const storedBaybayinChars = [];
+const storedBaybayinKudlits = [];
 
 /* click event for da script buttons */
 buttons.forEach(btn => {
@@ -57,22 +47,21 @@ buttons.forEach(btn => {
         // Update the selected base character
         selectedBaseChar = baybayinCharContent;
 
-        // Store the baybayin-char and baybayin-kudlit separately
-        storedBaybayinChar = baybayinCharContent;
-        storedBaybayinKudlit = baybayinKudlitContent;
+        // Store the baybayin-char and baybayin-kudlit separately if not already present
+        if (!storedBaybayinChars.includes(baybayinCharContent)) {
+            storedBaybayinChars.push(baybayinCharContent);
+        }
+
+        if (!storedBaybayinKudlits.includes(baybayinKudlitContent)) {
+            storedBaybayinKudlits.push(baybayinKudlitContent);
+        }
 
         // Pass the values separately to the backend without modifying them
-        const baybayinChar = getBaybayinCharFromInput(storedBaybayinChar);
-        const baybayinKudlit = getBaybayinCharFromInput(storedBaybayinKudlit);
-        const baybayinCharToGet = baybayinChar + baybayinKudlit;
         console.log(textarea.value);
-        console.log("Pass to backend: " + baybayinCharToGet);
+        console.log("Stored Baybayin Chars: " + storedBaybayinChars.join(''));
+        console.log("Stored Baybayin Kudlits: " + storedBaybayinKudlits.join(''));
     });
 });
-
-
-
-
 
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
@@ -298,10 +287,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 // For Latin to Baybayin, send the entire input from the textarea
                 requestData = { input: inputText.value };
             } else if (isBaybayinToLatin) {
-                // For Baybayin to Latin, send baybayin-character and kudlit separately
-                const baybayinChar = getBaybayinCharFromInput(inputText.value);
-                const baybayinKudlit = getBaybayinKudlitFromInput(inputText.value);
-                requestData = { charInput: baybayinChar, kudlitInput: baybayinKudlit };
+                requestData = {
+                    charInput: storedBaybayinChars.join(''),
+                    kudlitInput: storedBaybayinKudlits.join('')
+                };
             }
         
             fetch(apiEndpoint, {
