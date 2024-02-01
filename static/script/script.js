@@ -41,20 +41,24 @@ buttons.forEach(btn => {
                 textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
             }
 
-            // Form a new character
-            const newChar = baybayinCharContent + baybayinKudlitContent;
+            // Combine the base character and kudlit for display
+            const displayValue = baybayinCharContent + baybayinKudlitContent;
 
-            // Append the new character to the textarea
-            textarea.value += newChar;
+            // Append the combined value to the textarea
+            textarea.value += displayValue;
 
             // Update the selected base character
             selectedBaseChar = baybayinCharContent;
+
+            // Pass the combined value to the backend without modifying it
+            console.log("Pass to backend: " + textarea.value.replace(/[^A-Za-z]/g, ''));
         }
 
         console.log(textarea.value); // To see the result in the console log on the website
-        console.log("Pass to backend: " + textarea.value.replace(/[^A-Za-z]/g, '')); // To see what is passed to the backend
     });
 });
+
+
 
 
 
