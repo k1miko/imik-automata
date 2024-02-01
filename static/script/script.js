@@ -21,7 +21,6 @@ let chars = []
  let selectedBaseChar = '';
 
 /* click event for da script buttons */
-<<<<<<< HEAD
 // buttons.forEach(btn => {
 //     btn.addEventListener('click', () => {
 //         const baybayinCharContent = btn.querySelector('.baybayin-char').textContent;
@@ -32,54 +31,42 @@ let chars = []
 // })
 
 
-=======
->>>>>>> origin/nichole-other-changes
+/* click event for da script buttons */
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-        const baybayinCharElement = btn.querySelector('.baybayin-char');
-        const baybayinKudlitElement = btn.querySelector('.baybayin-kudlit');
-
-        // Check if the elements are present before accessing textContent
-        const baybayinCharContent = baybayinCharElement ? baybayinCharElement.textContent : '';
-        const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
-
-        textarea.style.fontFamily = "Baybayin";
-
-<<<<<<< HEAD
-        // If the clicked character is a vowel or there is no kudlit, just display it
-        if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
-            textarea.value += baybayinCharContent;
-        } else {
-            // If the base character is not empty and not a vowel, remove the last vowel
-            if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
-                textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
-=======
-        // If the base character is not empty, remove the last character
-        if (selectedBaseChar) {
-            if (['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
-                textarea.value = textarea.value.slice(0, -1);
->>>>>>> origin/nichole-other-changes
-            }
+      const baybayinCharElement = btn.querySelector('.baybayin-char');
+      const baybayinKudlitElement = btn.querySelector('.baybayin-kudlit');
+  
+      // Check if the elements are present before accessing textContent
+      const baybayinCharContent = baybayinCharElement ? baybayinCharElement.textContent : '';
+      const baybayinKudlitContent = baybayinKudlitElement ? baybayinKudlitElement.textContent : '';
+  
+      textarea.style.fontFamily = "Baybayin";
+  
+      // If the clicked character is a vowel or there is no kudlit, just display it
+      if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
+        textarea.value += baybayinCharContent;
+      } else {
+        // If the base character is not empty and not a vowel, remove the last vowel
+        if (selectedBaseChar && ['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
+          textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
         }
-
+  
+        // Form a new character
+        const newChar = baybayinCharContent + baybayinKudlitContent;
+  
         // Append the new character to the textarea
-        textarea.value += baybayinCharContent + baybayinKudlitContent;
-
+        textarea.value += newChar;
+  
         // Update the selected base character
         selectedBaseChar = baybayinCharContent;
-
-        // Pass the values separately to the backend without modifying them
-        console.log(textarea.value);
-        console.log("Pass to backend: " + baybayinCharContent + " and " + baybayinKudlitContent);
+      }
+  
+      console.log(textarea.value); // To see the result in the console log on the website
     });
-});
+  });
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/nichole-other-changes
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
     chars.pop() // if we click the delete button, the last character will be deleted
