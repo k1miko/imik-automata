@@ -1,9 +1,9 @@
 syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "NGA","PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
 vowel = "AEIOU "
-kudlit = "aeiou"
+kudlit = "eiou"
 
 
-class BaybayinToLatin:
+class BaybayinToLatin:  
     def __init__(self):
         self.stack = []
         self.state = "start"
@@ -216,7 +216,6 @@ class BaybayinToLatin:
                     self.stack = ["Invalid Output"] 
                 
 if __name__ == "__main__":
-    while True:
         pda = BaybayinToLatin()
         input_str = input("Enter a Baybayin string: ")
         result = pda.process_input(input_str, syllabic)

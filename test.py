@@ -58,7 +58,7 @@ class LatinToBaybayin:
                     self.transition_function(char)
             elif char.isspace():
                 self.state = "start"
-                self.transition_function(char)
+                self.transition_function("||")
             else:
                 self.stack = ["Invalid Output"]
                 
@@ -77,7 +77,7 @@ class LatinToBaybayin:
                     self.transition_function(char)
             elif char.isspace():
                 self.state = "space"
-                self.transition_function(char)
+                self.transition_function("||")
             else:
                 self.stack = ["Invalid Output"]
                 
@@ -94,7 +94,7 @@ class LatinToBaybayin:
                     self.transition_function(char)
             elif char.isspace():
                 self.state = "dead"
-                self.transition_function(char)
+                self.transition_function("||")
             else:
                 self.stack = ["Invalid Output"]  
         
@@ -112,7 +112,7 @@ class LatinToBaybayin:
                     self.transition_function(char)
             elif char.isspace():
                 self.state = "space"
-                self.transition_function(char)
+                self.transition_function("||")
             else:
                 self.stack = ["Invalid Output"]  
         
@@ -132,7 +132,7 @@ class LatinToBaybayin:
                 self.transition_function(char)
             elif char.isspace():
                 self.state = "dead"
-                self.transition_function(char)
+                self.transition_function("||")
             else:
                 self.stack = ["Invalid Output"]  
 
@@ -156,7 +156,7 @@ class LatinToBaybayin:
                     self.transition_function(char, "consonant")
             elif char.isspace():
                 self.state = "space"
-                self.transition_function(char, "final consonant")
+                self.transition_function("||", "final consonant")
             else:
                 self.stack = ["Invalid Output"]  
 
@@ -179,7 +179,7 @@ class LatinToBaybayin:
                     self.transition_function(char, "final_digraph")
             elif char.isspace():
                 self.state = "space"
-                self.transition_function(char, "final_digraph")
+                self.transition_function("||", "final_digraph")
             else:
                 self.stack = ["Invalid Output"]  
                 
@@ -199,7 +199,7 @@ class LatinToBaybayin:
             # Input is a space
             elif char.isspace():
                 self.state = "space"
-                self.transition_function(char)
+                self.transition_function("||")
             else:
                 self.result = "Invalid input"
 
