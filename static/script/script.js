@@ -49,12 +49,12 @@ buttons.forEach(btn => {
       } else {
         // If the base character is not empty and not a vowel, remove the last vowel
         if (selectedBaseChar && ['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
-          textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
+            textarea.value = textarea.value.slice(0, -1);
         }
   
         // Form a new character
         const newChar = baybayinCharContent + baybayinKudlitContent;
-  
+
         // Append the new character to the textarea
         textarea.value += newChar;
   
@@ -299,6 +299,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 },
                 body: JSON.stringify({ input: inputText.value })
             })
+            
             .then(response => response.json())
             .then(data => {
                 outputText.value = data.result;
