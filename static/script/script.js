@@ -19,18 +19,10 @@ const dropdowns = document.querySelectorAll('.dropdown-container'),
 let chars = []
 
 let selectedBaseChar = '';
+const storedBaybayinChars = [];
+const storedBaybayinKudlits = [];
 
 /* click event for da script buttons */
-// buttons.forEach(btn => {
-//     btn.addEventListener('click', () => {
-//         const baybayinCharContent = btn.querySelector('.baybayin-char').textContent;
-//         textarea.value += baybayinCharContent
-//         chars = textarea.value.split('')
-//         console.log(chars); // to see if it works go to the console log in the website
-//     })
-// })
-
-
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
         const baybayinCharElement = btn.querySelector('.baybayin-char');
@@ -42,29 +34,34 @@ buttons.forEach(btn => {
 
         textarea.style.fontFamily = "Baybayin";
 
-        // If the clicked character is a vowel or there is no kudlit, just display it
-        if (['A', 'E', 'I', 'O', 'U'].includes(baybayinCharContent) || !baybayinKudlitElement) {
-            textarea.value += baybayinCharContent;
-        } else {
-            // If the base character is not empty and not a vowel, remove the last vowel
-            if (selectedBaseChar && !['A', 'E', 'I', 'O', 'U'].includes(selectedBaseChar)) {
-                textarea.value = textarea.value.replace(new RegExp(selectedBaseChar + '$'), '');
+        // If the base character is not empty, remove the last character
+        if (selectedBaseChar) {
+            if (['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
+                textarea.value = textarea.value.slice(0, -1);
             }
-
-            // Form a new character
-            const newChar = baybayinCharContent + baybayinKudlitContent;
-
-            // Append the new character to the textarea
-            textarea.value += newChar;
-
-            // Update the selected base character
-            selectedBaseChar = baybayinCharContent;
         }
 
-        console.log(textarea.value); // To see the result in the console log on the website
+        // Append the new character to the textarea
+        textarea.value += baybayinCharContent + baybayinKudlitContent;
+
+        // Update the selected base character
+        selectedBaseChar = baybayinCharContent;
+
+        // Store the baybayin-char and baybayin-kudlit separately if not already present
+        if (!storedBaybayinChars.includes(baybayinCharContent)) {
+            storedBaybayinChars.push(baybayinCharContent);
+        }
+
+        if (!storedBaybayinKudlits.includes(baybayinKudlitContent)) {
+            storedBaybayinKudlits.push(baybayinKudlitContent);
+        }
+
+        // Pass the values separately to the backend without modifying them
+        console.log(textarea.value);
+        console.log("Stored Baybayin Chars: " + storedBaybayinChars.join(''));
+        console.log("Stored Baybayin Kudlits: " + storedBaybayinKudlits.join(''));
     });
 });
-
 
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
@@ -87,8 +84,7 @@ delete_button.addEventListener('mouseup', () => {
 
 // click event for the space
 space_button.addEventListener('click', () => {
-    chars.push('||') // alows the space to be added at the end of the array
-    textarea.value = chars.join('')
+    textarea.value += '||';
 })
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -283,18 +279,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (isLatinToBaybayin || isBaybayinToLatin) {
             const apiEndpoint = isLatinToBaybayin ? '/api/transliterate/latin-to-baybayin' : '/api/transliterate/baybayin-to-latin';
-
+        
+            let requestData;
+            if (isLatinToBaybayin) {
+                // For Latin to Baybayin, send the entire input from the textarea
+                requestData = { input: inputText.value };
+            } else if (isBaybayinToLatin) {
+                requestData = {
+                    charInput: storedBaybayinChars.join(''),
+                    kudlitInput: storedBaybayinKudlits.join('')
+                };
+            }
+        
             fetch(apiEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ input: inputText.value })
+                body: JSON.stringify(requestData)
             })
             .then(response => response.json())
             .then(data => {
                 outputText.value = data.result;
-
+        
                 // Handle styling based on the result
                 if (outputText.value === "Input not available in Baybayin" && isBaybayinToLatin) {
                     outputText.style.fontFamily = "Baybayin";
@@ -310,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             console.error('Invalid conversion selected');
         }
+        
     });
 });
 

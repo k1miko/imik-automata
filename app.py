@@ -32,16 +32,21 @@ def translit_from_latin_to_baybayin():
 
     return jsonify({'result': result})
 
-syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
+syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "NGA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
 
 @app.route('/api/transliterate/baybayin-to-latin', methods=['POST'])
 def translit_from_baybayin_to_latin():
     data = request.get_json()
 
-
-    if 'input' not in data:
+    if 'charInput' not in data or 'kudlitInput' not in data:
         return jsonify({'error': 'Invalid request'}), 400
-    input_str = data['input']
+    
+    char_input = data['charInput']
+    kudlit_input = data['kudlitInput']
+
+    input_str = char_input + kudlit_input
+    # Replace '||' with a space
+    input_str = input_str.replace('||', ' ')
 
     converter = baybayin.BaybayinToLatin()
     result = converter.process_input(input_str, syllabic)
@@ -51,6 +56,8 @@ def translit_from_baybayin_to_latin():
         result = "Input not available in Baybayin"
     
     return jsonify({'result': result})
+
+
 
 
 @app.route('/about') 
