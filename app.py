@@ -135,9 +135,6 @@ def capture_canvas():
         result = bottomCanvas.defineBottom(f'img/bottomCanvas_output.jpg')
     
     print(canvas_id + " " + result)
-    # Print a message to the terminal
-    print(f'Image from {canvas_id} captured, resized, and saved as {image_filename}.')
-
 
     # Return the concatenated result in a single JSON response
     return jsonify({'result': result, 'canvas_name': canvas_id})

@@ -77,7 +77,7 @@ delete_button.addEventListener('mouseup', () => {
 // click event for the space
 space_button.addEventListener('click', () => {
     textarea.value += '||';
-    storedBaybayinChars.push('||');
+    storedBaybayinChars.push(' ');
 })
 
 document.addEventListener("DOMContentLoaded", function() {
