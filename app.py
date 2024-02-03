@@ -101,7 +101,6 @@ def runpy():
 
 @app.route('/api/capture_canvas', methods=['POST'])
 def capture_canvas():
-    global image_counter
 
     data = request.get_json()
 
@@ -121,7 +120,7 @@ def capture_canvas():
     resized_image = resize_image(image, (28, 28))
 
     # Save the resized image to the 'img' directory with an incrementing file name
-    image_filename = f'img/{canvas_id}_{image_counter}_output.jpg'
+    image_filename = f'img/{canvas_id}_output.jpg'
     resized_image.save(image_filename)
 
     # Initialize the Pushdown Automaton
@@ -137,11 +136,6 @@ def capture_canvas():
         result = bottomCanvas.defineBottom(f'img/bottomCanvas_output.jpg')
     
     print(canvas_id + " " + result)
-    # Print a message to the terminal
-    print(f'Image from {canvas_id} captured, resized, and saved as {image_filename}.')
-
-    # Increment the image counter
-    image_counter += 1
 
     # Return the concatenated result in a single JSON response
     return jsonify({'result': result, 'canvas_name': canvas_id})
