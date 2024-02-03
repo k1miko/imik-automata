@@ -6,7 +6,6 @@ from PIL import Image
 import base64
 import os
 import centerCanvas, bottomCanvas, topCanvas
-from test2 import PushdownAutomata
 
 app = Flask(__name__)
 
@@ -72,33 +71,31 @@ def practice():
 if not os.path.exists('img'):
     os.makedirs('img')
 
-@app.route('/api/runpy', methods=['POST'])
-def runpy():
-    data = request.get_json()
-    
-    center = data['centerValue']
-    top = data['topValue']
-    bottom = data['bottomValue']
-    
-    print(center)
-    print(top)
-    print(bottom)
-    
-    syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "NGA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
-    vowel = ["A", "E", "I", "O", "U"]
+image_counter = 0  # Initialize image counter
 
-    # Initialize the Pushdown Automaton
-    automata = PushdownAutomata(syllabic, vowel)
+# @app.route('/api/capture_canvas', methods=['POST'])
+# def capture_canvas():
+#     data = request.get_json()
 
-    # Example 1∈
-    automata.process_input("centerCanvas", center)
-    automata.process_input("topCanvas", top)
-    automata.process_input("bottomCanvas", bottom)
-    result = automata.get_result()
-    print(f"Output: {result}")
-    
-    # Return the concatenated result in a single JSON response
-    return jsonify({'result': result})
+#     if 'canvasId' not in data or 'dataURL' not in data:
+#         return jsonify({'success': False, 'error': 'Invalid request'}), 400
+
+#     canvas_id = data['canvasId']
+#     data_url = data['dataURL']
+
+#     # Assuming you have a function to convert base64 data URL to an image, modify accordingly
+#     image = convert_data_url_to_image(data_url)
+
+#     # Save the image to the 'img' directory
+#     image.save(f'img/{canvas_id}_output.png')
+
+#     # Print a message to the terminal
+#     print(f'Image from {canvas_id} captured and saved successfully.')
+
+#     # Return success response with the image URL
+#     return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
+
+# Define a global counter to keep track of the image files
 
 @app.route('/api/capture_canvas', methods=['POST'])
 def capture_canvas():
@@ -124,22 +121,19 @@ def capture_canvas():
     image_filename = f'img/{canvas_id}_output.jpg'
     resized_image.save(image_filename)
 
-    # Initialize the Pushdown Automaton
-    vowel = ["A", "E", "I", "O", "U"]
-    
-    automata = PushdownAutomata(syllabic, vowel)
     
     if(canvas_id == "centerCanvas"):
-        result = centerCanvas.defineCenter(f'img/centerCanvas_output.jpg')
+        centerResult = centerCanvas.defineCenter(f'img/centerCanvas_output.jpg')
+        print(f'Center Result: {centerResult}')
     if(canvas_id == "topCanvas"):
-        result = topCanvas.defineTop(f'img/topCanvas_output.jpg')
+        topResult = topCanvas.defineCenter(f'img/topCanvas_output.jpg')
+        print(f'Top Result: {topResult}')
     if(canvas_id == "bottomCanvas"):
-        result = bottomCanvas.defineBottom(f'img/bottomCanvas_output.jpg')
-    
-    print(canvas_id + " " + result)
+        bottomResult = bottomCanvas.defineCenter(f'img/bottomCanvas_output.jpg')
+        print(f'Bottom Result: {bottomResult}')
 
-    # Return the concatenated result in a single JSON response
-    return jsonify({'result': result, 'canvas_name': canvas_id})
+    # Return success response with the image URL
+    return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
 
 
 def convert_data_url_to_image(data_url):
