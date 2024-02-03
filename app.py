@@ -116,7 +116,7 @@ def capture_canvas():
     resized_image = resize_image(image, (28, 28))
 
     # Save the resized image to the 'img' directory with an incrementing file name
-    image_filename = f'img/{canvas_id}_{image_counter}_output.jpg'
+    image_filename = f'img\est\{canvas_id}_{image_counter}jp_output.jpg'
     resized_image.save(image_filename)
 
     # Print a message to the terminal
