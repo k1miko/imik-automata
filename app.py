@@ -38,19 +38,18 @@ syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "N
 def translit_from_baybayin_to_latin():
     data = request.get_json()
 
-    if 'charInput' not in data or 'kudlitInput' not in data:
+    if 'charInput' not in data:
         return jsonify({'error': 'Invalid request'}), 400
     
     char_input = data['charInput']
-    kudlit_input = data['kudlitInput']
 
-    input_str = char_input + kudlit_input
+    input_str = char_input
     # Replace '||' with a space
-    input_str = input_str.replace('||', ' ')
+    # input_str = input_str.replace('||', ' ')
 
     converter = baybayin.BaybayinToLatin()
     result = converter.process_input(input_str, syllabic)
-    if converter.state == "": # If input is only in a start state
+    if converter.state == "start": # If input is only in a start state
         result = "Enter a character"
     elif converter.state == "dead": # If last input is not in a final state
         result = "Input not available in Baybayin"
@@ -96,9 +95,11 @@ image_counter = 0  # Initialize image counter
 #     return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
 
 # Define a global counter to keep track of the image files
+image_counter = 0
 
 @app.route('/api/capture_canvas', methods=['POST'])
 def capture_canvas():
+    global image_counter
 
     data = request.get_json()
 
@@ -118,22 +119,18 @@ def capture_canvas():
     resized_image = resize_image(image, (28, 28))
 
     # Save the resized image to the 'img' directory with an incrementing file name
-    image_filename = f'img/{canvas_id}_output.jpg'
+    image_filename = f'img/{canvas_id}_{image_counter}_output.jpg'
     resized_image.save(image_filename)
 
-    
-    if(canvas_id == "centerCanvas"):
-        centerResult = centerCanvas.defineCenter(f'img/centerCanvas_output.jpg')
-        print(f'Center Result: {centerResult}')
-    if(canvas_id == "topCanvas"):
-        topResult = topCanvas.defineCenter(f'img/topCanvas_output.jpg')
-        print(f'Top Result: {topResult}')
-    if(canvas_id == "bottomCanvas"):
-        bottomResult = bottomCanvas.defineCenter(f'img/bottomCanvas_output.jpg')
-        print(f'Bottom Result: {bottomResult}')
+    # Print a message to the terminal
+    print(f'Image from {canvas_id} captured, resized, and saved as {image_filename}.')
+
+    # Increment the image counter
+    image_counter += 1
 
     # Return success response with the image URL
     return jsonify({'success': True, 'imageUrl': f'/get_image/{canvas_id}'})
+
 
 
 def convert_data_url_to_image(data_url):

@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const topCanvas = document.getElementById('topCanvas');
     const centerCanvas = document.getElementById('centerCanvas');
     const bottomCanvas = document.getElementById('bottomCanvas');
+    const outputTextContainer = document.getElementById('output-text-container'); // Added this line
+
 
     const topCtx = topCanvas.getContext('2d');
     const centerCtx = centerCanvas.getContext('2d');
@@ -88,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clearCanvas(topCtx, topCanvas);
         clearCanvas(centerCtx, centerCanvas);
         clearCanvas(bottomCtx, bottomCanvas);
+        updateOutputText('');
     });
 
     function captureCanvasAndSend(canvasId) {
@@ -105,11 +108,16 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             if (data.success) {
                 console.log(`Image from ${canvasId} captured successfully. Image URL: ${data.imageUrl}`);
+                updateOutputText(data.result);
             } else {
                 console.error('Failed to capture and send canvas data.');
             }
         })
         .catch(error => console.error('Error:', error));
+    }
+
+    function updateOutputText(result) {
+        outputTextContainer.textContent = result;
     }
 
     function clearCanvas(ctx, canvas) {
