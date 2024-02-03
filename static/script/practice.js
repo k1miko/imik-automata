@@ -2,10 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const topCanvas = document.getElementById('topCanvas');
     const centerCanvas = document.getElementById('centerCanvas');
     const bottomCanvas = document.getElementById('bottomCanvas');
+    const outputContainer = document.getElementById("output-text");
 
     const topCtx = topCanvas.getContext('2d');
     const centerCtx = centerCanvas.getContext('2d');
     const bottomCtx = bottomCanvas.getContext('2d');
+
+    var centerValue = "";
+    var topValue = ""
+    var bottomValue = ""
 
     // Set canvas sizes
     const canvasHeight = window.innerHeight * 0.25;
@@ -79,16 +84,27 @@ document.addEventListener('DOMContentLoaded', function () {
     var clearButton = document.getElementById('clear-button');
 
     enterButton.addEventListener('click', function () {
-        captureCanvasAndSend('topCanvas');
-        captureCanvasAndSend('centerCanvas');
-        captureCanvasAndSend('bottomCanvas');
+        // Capture and send each canvas sequentially
+        captureCanvasAndSend('topCanvas')
+            .then(() => captureCanvasAndSend('centerCanvas'))
+            .then(() => captureCanvasAndSend('bottomCanvas'))
+            .then(() => {
+                // All canvases have been captured and sent, now run Python recognition
+                runPythonRecog(centerValue, topValue, bottomValue);
+            })
+            .catch(error => {
+                // Handle any errors during the process
+                console.error('Error:', error);
+            });
     });
 
     clearButton.addEventListener('click', function () {
         clearCanvas(topCtx, topCanvas);
         clearCanvas(centerCtx, centerCanvas);
         clearCanvas(bottomCtx, bottomCanvas);
+        updateOutputText('');
     });
+
 
     function captureCanvasAndSend(canvasId) {
         var canvas = document.getElementById(canvasId);
@@ -99,25 +115,56 @@ document.addEventListener('DOMContentLoaded', function () {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ canvasId: canvasId, dataURL: dataURL })
+            body: JSON.stringify({ canvasId: canvasId, dataURL: dataURL})
         })
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                console.log(`Image from ${canvasId} captured successfully. Image URL: ${data.imageUrl}`);
-            } else {
-                console.error('Failed to capture and send canvas data.');
+            if(data.canvas_name == "centerCanvas"){
+                console.log(data.result)
+                centerValue = data.result;
+            }else if(data.canvas_name == "topCanvas"){
+                console.log(data.result)
+                topValue = data.result;
+            }else if(data.canvas_name == "bottomCanvas"){
+                console.log(data.result)
+                bottomValue = data.result;
             }
+            
         })
         .catch(error => console.error('Error:', error));
+
+        return new Promise((resolve, reject) => {
+            // Simulating an asynchronous operation (e.g., fetching canvas data)
+            setTimeout(() => {
+                // Assuming canvasData is the captured data
+                const canvasData = "captured data for " + canvasId;
+                console.log(`${canvasId} data captured and sent`);
+                resolve(canvasData);
+            }, 100); // Simulating a delay for demonstration purposes
+        });
     }
 
     function clearCanvas(ctx, canvas) {
         // Clear the entire canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
         // Additional logic to redraw any necessary elements or lines after clearing
         // You may reapply the initial canvas state or redraw any default elements
         initializeCanvas(canvas, ctx, '#FFFFFF');
     }
+
+    function runPythonRecog(centerValue,topValue,bottomValue){
+        fetch('/api/runpy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 'centerValue': centerValue, 'topValue': topValue, 'bottomValue':bottomValue})
+        })
+        .then(response => response.json())
+        .then(data => {
+            outputContainer.textContent = data.result
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    
 });

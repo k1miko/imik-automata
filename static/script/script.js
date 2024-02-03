@@ -15,10 +15,9 @@ const dropdowns = document.querySelectorAll('.dropdown-container'),
       inputLangDropdown = document.querySelector('#input-script'),
       outputLangDropdown = document.querySelector('#output-script');
 
-/* empty array, necessary for getting the chars typed in the text area, wherein it splits each character typed into individual characters. Ex., chars = ['A', 'BA'] assuming they r the baybayin script*/
-let chars = []
-
- let selectedBaseChar = '';
+// necessary for storing the value to be passed to app.py, also selectedBasedChar for removing the last letter and replacing it with kudlit
+let selectedBaseChar = '';
+const storedBaybayinChars = [];
 
 /* click event for da script buttons */
 // buttons.forEach(btn => {
@@ -61,26 +60,31 @@ buttons.forEach(btn => {
         // Update the selected base character
         selectedBaseChar = baybayinCharContent;
       }
-      const modifiedValue = textarea.value.replace(/\|\|/g, ' ');
+        const modifiedValue = textarea.value.replace(/\|\|/g, ' ');
 
-  
-      console.log(modifiedValue); // To see the result in the console log on the website
+        // Store the kudlit nd character individually
+        storedBaybayinChars.push(baybayinCharContent);
+        storedBaybayinChars.push(baybayinKudlitContent);
+
+        // Pass the values separately to the backend without modifying them
+        console.log(modifiedValue);
+        console.log("Stored Baybayin Chars: " + storedBaybayinChars.join(''));
     });
-  });
-
+});
 
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
-    chars.pop() // if we click the delete button, the last character will be deleted
-    textarea.value = chars.join('') // it will update the text area
-})
+    storedBaybayinChars.pop();
+    textarea.value = storedBaybayinChars.join('');
+    console.log("Existing Array: " + storedBaybayinChars.join(''));
+});
 
 let holdDeleter;
 
 delete_button.addEventListener('mousedown', () => {
     holdDeleter = setInterval(() => {
-        chars.pop(); // Delete the last character
-        textarea.value = chars.join(''); // Update the textarea
+        storedBaybayinChars.pop(); // Delete the last character
+        textarea.value = storedBaybayinChars.join(''); // Update the textarea
     }, 100); // Adjust the interval as needed
 });
 
@@ -289,13 +293,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (isLatinToBaybayin || isBaybayinToLatin) {
             const apiEndpoint = isLatinToBaybayin ? '/api/transliterate/latin-to-baybayin' : '/api/transliterate/baybayin-to-latin';
-
+        
+            let requestData;
+            if (isLatinToBaybayin) {
+                // For Latin to Baybayin, send the entire input from the textarea
+                requestData = { input: inputText.value };
+            } else if (isBaybayinToLatin) {
+                requestData = {
+                    charInput: storedBaybayinChars.join('')
+                };
+            }
+        
             fetch(apiEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ input: inputText.value })
+                body: JSON.stringify(requestData)
             })
             
             .then(response => response.json())
@@ -321,6 +335,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             console.error('Invalid conversion selected');
         }
+        
     });
 });
 
