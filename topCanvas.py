@@ -8,7 +8,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 # Load the trained model
 model = joblib.load("model/baybayintop_model")
 
-def defineTop(img_path):
+def defineCenter(img_path):
     # Read the image
     im = cv2.imread(img_path)
     im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)

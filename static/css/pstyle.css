@@ -91,11 +91,14 @@ h2{
     align-items: center;
     margin-top: 50px;
 }
+<<<<<<< HEAD
 
 h1{
     font-weight: bolder;
     
 }
+=======
+>>>>>>> origin/jm_new_branch
 
 @media(max-width: 700px){
     body{
