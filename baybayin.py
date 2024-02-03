@@ -141,7 +141,7 @@ class BaybayinToLatin:
                     self.state = "vowel"
                     self.transition_function(string)
                 elif string in kudlit:
-                    self.state = "space"
+                    self.state = "dead"
                     self.transition_function(string)
                 elif string.isspace():
                     self.state = "space"
