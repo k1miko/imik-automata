@@ -101,7 +101,6 @@ def runpy():
 
 @app.route('/api/capture_canvas', methods=['POST'])
 def capture_canvas():
-
     data = request.get_json()
 
     if 'canvasId' not in data or 'dataURL' not in data:
