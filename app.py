@@ -84,7 +84,7 @@ def runpy():
     print(bottom)
     
     syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "NGA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
-    vowel = ["A", "E", "I", "O", "U"]
+    vowel = ["A", "E or I", "O or U"]
 
     # Initialize the Pushdown Automaton
     automata = PushdownAutomata(syllabic, vowel)
