@@ -1,7 +1,7 @@
 def execute_main_code(center_canvas_symbol, top_canvas_symbol, bottom_canvas_symbol):
     # Define allowed syllabic and vowel symbols
     syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "NGA", "PA", "QA", "RA", "SA", "TA", "VA", "WA", "XA", "YA", "ZA"]
-    vowel = ["A", "E", "I", "O", "U"]
+    vowel = ["A", "O or U", "E or I"]
 
     # Initialize the Pushdown Automaton
     automata = PushdownAutomata(syllabic, vowel)
@@ -57,6 +57,7 @@ class PushdownAutomata:
                 self.state = "topCanvas"
         elif symbol in self.vowel:
             # Check if both top and bottom canvases have empty values (ε)
+            print("symboltest" + symbol)
             if self.stack == [""] and self.state == "topCanvas":
                 self.stack.append(symbol)
                 self.result = "".join(self.stack)
