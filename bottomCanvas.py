@@ -8,11 +8,11 @@ warnings.filterwarnings("ignore", category=UserWarning)
 # Load the trained model
 model = joblib.load("model/baybayinbottom_model")
 
-def defineCenter(img_path):
+def defineBottom(img_path):
     # Read the image
     im = cv2.imread(img_path)
     im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-    im_gray = cv2.GaussianBlur(im_gray, (11, 11), 0)
+    im_gray = cv2.GaussianBlur(im_gray, (9, 9), 0)
 
     # Threshold the image
     _, im_th = cv2.threshold(im_gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
