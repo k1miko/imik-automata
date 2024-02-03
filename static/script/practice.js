@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clearCanvas(topCtx, topCanvas);
         clearCanvas(centerCtx, centerCanvas);
         clearCanvas(bottomCtx, bottomCanvas);
+        updateOutputText('');
     });
 
 
