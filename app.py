@@ -45,7 +45,7 @@ def translit_from_baybayin_to_latin():
 
     input_str = char_input
     # Replace '||' with a space
-    # input_str = input_str.replace('||', ' ')
+    input_str = input_str.replace('||', ' ')
 
     converter = baybayin.BaybayinToLatin()
     result = converter.process_input(input_str, syllabic)

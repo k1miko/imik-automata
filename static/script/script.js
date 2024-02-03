@@ -31,27 +31,20 @@ buttons.forEach(btn => {
 
         textarea.style.fontFamily = "Baybayin";
 
-        // Check if the clicked button represents a space (||)
-        if (baybayinCharContent === '||') {
-            // Add a space in the textarea
-            textarea.value += '||';
-            storedBaybayinChars.push('||');
-        } else {
-            // If the base character is not empty, remove the last character
-            if (selectedBaseChar) {
-                if (['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
-                    textarea.value = textarea.value.slice(0, -1);
-                }
+        // If the base character is not empty, remove the last character
+        if (selectedBaseChar) {
+            if (['e', 'i', 'o', 'u'].includes(baybayinKudlitContent)) {
+                textarea.value = textarea.value.slice(0, -1);
             }
-
-            // Append the new character to the textarea
-            textarea.value += baybayinCharContent + baybayinKudlitContent;
         }
+
+        // Append the new character to the textarea
+        textarea.value += baybayinCharContent + baybayinKudlitContent;
 
         // Update the selected base character
         selectedBaseChar = baybayinCharContent;
 
-        // Store the kudlit and character individually
+        // Store the kudlit nd character individually
         storedBaybayinChars.push(baybayinCharContent);
         storedBaybayinChars.push(baybayinKudlitContent);
 
@@ -60,7 +53,6 @@ buttons.forEach(btn => {
         console.log("Stored Baybayin Chars: " + storedBaybayinChars.join(''));
     });
 });
-
 
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
@@ -85,6 +77,7 @@ delete_button.addEventListener('mouseup', () => {
 // click event for the space
 space_button.addEventListener('click', () => {
     textarea.value += '||';
+    storedBaybayinChars.push('||');
 })
 
 document.addEventListener("DOMContentLoaded", function() {
