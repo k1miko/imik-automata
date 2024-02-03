@@ -39,19 +39,18 @@ syllabic = ["BA", "CA", "DA", "FA", "GA", "HA", "JA", "KA", "LA", "MA", "NA", "N
 def translit_from_baybayin_to_latin():
     data = request.get_json()
 
-    if 'charInput' not in data or 'kudlitInput' not in data:
+    if 'charInput' not in data:
         return jsonify({'error': 'Invalid request'}), 400
     
     char_input = data['charInput']
-    kudlit_input = data['kudlitInput']
 
-    input_str = char_input + kudlit_input
+    input_str = char_input
     # Replace '||' with a space
     input_str = input_str.replace('||', ' ')
 
     converter = baybayin.BaybayinToLatin()
     result = converter.process_input(input_str, syllabic)
-    if converter.state == "": # If input is only in a start state
+    if converter.state == "start": # If input is only in a start state
         result = "Enter a character"
     elif converter.state == "dead": # If last input is not in a final state
         result = "Input not available in Baybayin"
@@ -102,6 +101,7 @@ def runpy():
 
 @app.route('/api/capture_canvas', methods=['POST'])
 def capture_canvas():
+    global image_counter
 
     data = request.get_json()
 
@@ -121,7 +121,7 @@ def capture_canvas():
     resized_image = resize_image(image, (28, 28))
 
     # Save the resized image to the 'img' directory with an incrementing file name
-    image_filename = f'img/{canvas_id}_output.jpg'
+    image_filename = f'img/{canvas_id}_{image_counter}_output.jpg'
     resized_image.save(image_filename)
 
     # Initialize the Pushdown Automaton
@@ -137,6 +137,11 @@ def capture_canvas():
         result = bottomCanvas.defineBottom(f'img/bottomCanvas_output.jpg')
     
     print(canvas_id + " " + result)
+    # Print a message to the terminal
+    print(f'Image from {canvas_id} captured, resized, and saved as {image_filename}.')
+
+    # Increment the image counter
+    image_counter += 1
 
     # Return the concatenated result in a single JSON response
     return jsonify({'result': result, 'canvas_name': canvas_id})

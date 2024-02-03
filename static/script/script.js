@@ -15,12 +15,9 @@ const dropdowns = document.querySelectorAll('.dropdown-container'),
       inputLangDropdown = document.querySelector('#input-script'),
       outputLangDropdown = document.querySelector('#output-script');
 
-/* empty array, necessary for getting the chars typed in the text area, wherein it splits each character typed into individual characters. Ex., chars = ['A', 'BA'] assuming they r the baybayin script*/
-let chars = []
-
+// necessary for storing the value to be passed to app.py, also selectedBasedChar for removing the last letter and replacing it with kudlit
 let selectedBaseChar = '';
 const storedBaybayinChars = [];
-const storedBaybayinKudlits = [];
 
 /* click event for da script buttons */
 buttons.forEach(btn => {
@@ -47,34 +44,29 @@ buttons.forEach(btn => {
         // Update the selected base character
         selectedBaseChar = baybayinCharContent;
 
-        // Store the baybayin-char and baybayin-kudlit separately if not already present
-        if (!storedBaybayinChars.includes(baybayinCharContent)) {
-            storedBaybayinChars.push(baybayinCharContent);
-        }
-
-        if (!storedBaybayinKudlits.includes(baybayinKudlitContent)) {
-            storedBaybayinKudlits.push(baybayinKudlitContent);
-        }
+        // Store the kudlit nd character individually
+        storedBaybayinChars.push(baybayinCharContent);
+        storedBaybayinChars.push(baybayinKudlitContent);
 
         // Pass the values separately to the backend without modifying them
         console.log(textarea.value);
         console.log("Stored Baybayin Chars: " + storedBaybayinChars.join(''));
-        console.log("Stored Baybayin Kudlits: " + storedBaybayinKudlits.join(''));
     });
 });
 
 /* click event for the delete button */
 delete_button.addEventListener('click', () => {
-    chars.pop() // if we click the delete button, the last character will be deleted
-    textarea.value = chars.join('') // it will update the text area
-})
+    storedBaybayinChars.pop();
+    textarea.value = storedBaybayinChars.join('');
+    console.log("Existing Array: " + storedBaybayinChars.join(''));
+});
 
 let holdDeleter;
 
 delete_button.addEventListener('mousedown', () => {
     holdDeleter = setInterval(() => {
-        chars.pop(); // Delete the last character
-        textarea.value = chars.join(''); // Update the textarea
+        storedBaybayinChars.pop(); // Delete the last character
+        textarea.value = storedBaybayinChars.join(''); // Update the textarea
     }, 100); // Adjust the interval as needed
 });
 
@@ -85,6 +77,7 @@ delete_button.addEventListener('mouseup', () => {
 // click event for the space
 space_button.addEventListener('click', () => {
     textarea.value += '||';
+    storedBaybayinChars.push('||');
 })
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -286,8 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 requestData = { input: inputText.value };
             } else if (isBaybayinToLatin) {
                 requestData = {
-                    charInput: storedBaybayinChars.join(''),
-                    kudlitInput: storedBaybayinKudlits.join('')
+                    charInput: storedBaybayinChars.join('')
                 };
             }
         
